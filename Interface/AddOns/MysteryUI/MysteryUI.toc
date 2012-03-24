@@ -1,0 +1,13 @@
+﻿## Interface: 40300
+## Author: Mystery
+## Title: |cff777777|rMysteryUI
+## Notes: Interface setup
+## Notes-zhCN: |cffbc8f8f这是插件的核心|r|cffb70000请尽量不要禁用该插件。|r
+## Notes-zhTW: |cffbc8f8f這是插件的核心|r|cffb70000請儘量不要禁用該插件。|r
+## Version: V2.1
+## RequiredDeps: Blizzard_CombatText
+## OptionalDeps: DBM-Core
+
+
+ui.xml
+

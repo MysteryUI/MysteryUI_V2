@@ -1,0 +1,24 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file='rBuffFrameStyler\elements.xml' />
+	<Include file='JPack\JPack.xml' />
+	
+	<Script file='core.lua' />
+	<Script file='Bar.lua' />
+	<Script file='Unitframes.lua' />
+	<Script file='Minimap.lua' />
+	<Script file='Cooltimer.lua' />
+	<Script file='color.lua' />
+	<Script file='ButtonBorder.lua' />
+	<Script file='Classcolors.lua' />
+	<Script file='Chat.lua' />
+	<Script file='NamePlates.lua' />
+	<Script file='Tooltip.lua' />
+	<Script file='combattext.lua' />
+	<Script file='Mapcoords.lua' />
+	<Script file='rFilter3.lua' />
+	<Script file='Guildtab.lua' />
+	<Script file='Raidfader.lua' />
+	<Script file='durability.lua' />
+	<Script file='Hotkey.lua' />
+	<Script file='Autoloot.lua' />
+</Ui>

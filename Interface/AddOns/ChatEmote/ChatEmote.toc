@@ -1,0 +1,12 @@
+﻿## Interface: 40300
+## Title: ChatEmote
+## Title-zhCN: |cff0055FF聊天表情|r
+## Title-zhTW: |cff0055FF聊天表情|r
+## Notes: Display Chat Emotes
+## Notes-zhCN: |cffbc8f8f聊天表情.打开聊天框可见|r
+## Notes-zhTW: |cffbc8f8f聊天表情.打開聊天框可見|r
+## Version: 1.2
+## OptionalDeps: Tukui
+
+ChatEmote.lua
+ChatEmoteButton.xml
