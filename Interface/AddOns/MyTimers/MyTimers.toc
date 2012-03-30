@@ -1,0 +1,10 @@
+## Title: MyTimers
+## Notes: Shows Buff/Debuffs on the Target and Focus portrait
+## Version: 2+
+## Interface: 40300
+## SavedVariablesPerCharacter: MyTimersDB
+
+localization.lua
+MT_spells.lua
+MT_config.lua
+MyTimers.lua
