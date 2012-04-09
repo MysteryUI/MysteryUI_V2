@@ -1,9 +1,10 @@
 ﻿--[[ 选项 ]]
 local SellGreyCrap = true           -- 是否自动出售灰色物品.
-local HideHotKeys = true          -- 是否隐藏快捷键和宏在技能栏里的文本
+local HideHotKeys = true            -- 是否隐藏快捷键和宏在技能栏里的文本
 local HideShapeShift = true         -- 是否隐藏姿态栏
-local HideClock = false              -- 是否隐藏暴雪时钟
-local checkthrown = false            -- 是否检毒药
+local HideClock = false             -- 是否隐藏暴雪时钟
+local checkthrown = false           -- 是否检毒药
+local MoveWatchFrame = true         -- 是否移动任务追踪框体
 
 --[[ 隐藏姿态栏 ]]
 if (HideShapeShift == true) then
@@ -136,6 +137,7 @@ end)
 end
 
 --[[移动任务追踪框体]]
+if (MoveWatchFrame == true) then
 local _G = _G  
   
 local pos = { a1 = "TOPLEFT", a2 = "TOPLEFT", af = "UIParent", x = 70, y = -70 }
@@ -189,6 +191,7 @@ local a = CreateFrame("Frame")
   end)
   
   a:RegisterEvent("PLAYER_LOGIN")
+ end
   
 --[[ 盗贼毒药检查 ]]
 if(select(2,UnitClass("player")) ~= "ROGUE" or UnitLevel("player") < 20) then return end

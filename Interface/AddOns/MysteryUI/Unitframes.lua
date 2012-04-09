@@ -5,11 +5,13 @@ local _, class = UnitClass("player")
 ---------------------------------------------------
 UnitFrames = {}
 UnitFrames.config = {
+    SetPoint = true,                -- true or false 是否使用脚本重新定义的各个框体位置
+    classTarget = false,            -- true or false 是否其他单位显示职业图标
     classColorPlayer = true,        -- true or false 是否渲染玩家职业框体颜色
     classColorTarget = true,        -- true or false 是否渲染目标职业框体颜色
     classColorFocus = true,         -- true or false 是否渲染焦点职业框体颜色
     classColorParty = true,         -- true or false 是否渲染队伍职业框体颜色
-    repositionPartyText = false,     -- true or false 是否重新定位队伍文本
+    repositionPartyText = false,    -- true or false 是否重新定位队伍文本
     largeAuraSize = 23,             -- Blizzard default value is 21
     smallAuraSize = 17,             -- Blizzard default value is 17
     customStatusText = true,        -- true or false (是否自定义状态文本)
@@ -28,7 +30,7 @@ UnitFrames.config.phrases = {
     ["giga"] = " g",  -- simpleHealth 1.000.000.000
 }
 
-
+if UnitFrames.config.SetPoint then
 --[[ 设置位置 ]]
 TargetFrame:ClearAllPoints() TargetFrame:SetPoint("center", 175, -140) 
 TargetFrameToT:ClearAllPoints() TargetFrameToT:SetPoint("LEFT",TargetFrame,"Top", -15, -1)
@@ -47,7 +49,7 @@ local function ScrewYouPlayerFrame()
 hooksecurefunc("PlayerFrame_AnimateOut", function() PlayerFrame:SetAlpha(0); ScrewYouPlayerFrame() end)
 hooksecurefunc("PlayerFrame_SequenceFinished", function() PlayerFrame:SetAlpha(1); ScrewYouPlayerFrame() end)
 hooksecurefunc("PlayerFrame_UpdateStatus", ScrewYouPlayerFrame)
-
+end
 
 --[[ 缩放设置 ]]
 PlayerFrame:SetScale("1.2")
@@ -133,11 +135,14 @@ end)
 hooksecurefunc(FocusFrameSpellBar, "Show", function()
     FocusFrameSpellBar:SetScale("1.2")
 	FocusFrameSpellBar:ClearAllPoints()
+	if UnitFrames.config.SetPoint then
 	FocusFrameSpellBar:SetPoint("CENTER", UIParent, "CENTER", 0, 150)
 	FocusFrameSpellBar.SetPoint = function() end
+	end
 end)
 FocusFrameSpellBar:SetStatusBarColor(0,0.45,0.9); FocusFrameSpellBar.SetStatusBarColor = function() end
 
+if UnitFrames.config.SetPoint then
 --[[ 符文 ]]
 RuneFrame:ClearAllPoints() RuneFrame:SetPoint("CENTER",UIParent,"CENTER",0,-170) RuneFrame.SetPoint = function() end
 for i=1,6 do _G["RuneButtonIndividual"..i]:SetScale("1.1") end
@@ -148,6 +153,7 @@ RuneButtonIndividual2:SetPoint("RIGHT",RuneButtonIndividual3,"LEFT",-4,8)
 RuneButtonIndividual1:SetPoint("RIGHT",RuneButtonIndividual2,"LEFT",-4,8)
 RuneButtonIndividual5:SetPoint("LEFT",RuneButtonIndividual4,"RIGHT",4,8)
 RuneButtonIndividual6:SetPoint("LEFT",RuneButtonIndividual5,"RIGHT",4,8)
+end
 
 --[[ 隐藏pvp图标 ]]
 PlayerPVPIcon:SetAlpha(0)
@@ -158,7 +164,7 @@ PetHitIndicator:ClearAllPoints()
 PlayerHitIndicator:ClearAllPoints()
 
 --[[ 图标 ]]
---[[
+if UnitFrames.config.classTarget then
 UFP = "UnitFramePortrait_Update"; 
 UICC = "Interface\\TargetingFrame\\UI-Classes-Circles"; 
 CIT = CLASS_ICON_TCOORDS
@@ -169,7 +175,7 @@ hooksecurefunc(UFP,function(self)
    local t = CIT[select(2,UnitClass(self.unit))] 
  if t 
   then self.portrait:SetTexture(UICC) self.portrait:SetTexCoord(unpack(t)) end end end)
-]]
+end
 
 
 ---------------------------------------------------

@@ -216,20 +216,26 @@
       icon:SetPoint("TOPLEFT", b, "TOPLEFT", 2, -2)
       icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -2, 2)
       icon:SetDrawLayer("BACKGROUND",-8)
-      
+          
       --duration
-      b.duration:SetFont(cfg.font, cfg.duration.fontsize, "THINOUTLINE")
-      b.duration:ClearAllPoints()
-      b.duration:SetPoint(cfg.duration.pos.a1,cfg.duration.pos.x,cfg.duration.pos.y)
-      
-      --hook duration settext
-      hooksecurefunc(b.duration, "SetFormattedText", durationSetText)
+      if b.duration then
+         b.duration:SetFont(cfg.font, cfg.duration.fontsize, "THINOUTLINE")
+         b.duration:ClearAllPoints()
+         b.duration:SetPoint(cfg.duration.pos.a1,cfg.duration.pos.x,cfg.duration.pos.y)
+         
+         --hook duration settext
+         
+         hooksecurefunc(b.duration, "SetFormattedText", durationSetText)
+      end 
+
 
       --count
-      b.count:SetFont(cfg.font, cfg.count.fontsize, "THINOUTLINE")
-      b.count:ClearAllPoints()
-      b.count:SetPoint(cfg.count.pos.a1,cfg.count.pos.x,cfg.count.pos.y)
-      
+      if b.count then
+        b.count:SetFont(cfg.font, cfg.count.fontsize, "THINOUTLINE")
+        b.count:ClearAllPoints()
+        b.count:SetPoint(cfg.count.pos.a1,cfg.count.pos.x,cfg.count.pos.y)
+      end
+
       --shadow
       if cfg.background.showshadow then
         local back = CreateFrame("Frame", nil, b)
@@ -261,7 +267,38 @@
       if b and not b.styled then
         applySkin(b,"DebuffButton"..i,"debuff")
       end
-    end    
+    end   
+  end
+  
+  --check target buff by fish
+  local function checktargetauras()  
+    for i=1, BUFF_MAX_DISPLAY do
+      local b = _G["TargetFrameBuff"..i]    
+      if b and not b.styled then
+        applySkin(b,"TargetFrameBuff"..i,"buff")
+      end
+    end 
+    for i=1, DEBUFF_MAX_DISPLAY do
+      local b = _G["TargetFrameDebuff"..i]
+      if b and not b.styled then
+        applySkin(b,"TargetFrameDebuff"..i,"debuff")
+      end
+    end   
+  end
+  
+  local function checkfocusauras()  
+    for i=1, BUFF_MAX_DISPLAY do
+      local b = _G["FocusFrameBuff"..i]    
+      if b and not b.styled then
+        applySkin(b,"FocusFrameBuff"..i,"buff")
+      end
+    end 
+    for i=1, DEBUFF_MAX_DISPLAY do
+      local b = _G["FocusFrameDebuff"..i]
+      if b and not b.styled then
+        applySkin(b,"FocusFrameDebuff"..i,"debuff")
+      end
+    end   
   end
 
   --init func
@@ -327,8 +364,22 @@
       if (unit == PlayerFrame.unit) then
         checkauras()
       end
+      if (unit == "target") then
+        checktargetauras()
+      end
+      if (unit == "focus") then
+        checkfocusauras()
+      end
+    end
+    if (event=="PLAYER_TARGET_CHANGED") then      
+      checktargetauras()
+    end
+    if (event=="PLAYER_FOCUS_CHANGED") then      
+      checkfocusauras()
     end
   end)
 
   a:RegisterEvent("PLAYER_ENTERING_WORLD")
   a:RegisterEvent("UNIT_AURA")
+  a:RegisterEvent("PLAYER_TARGET_CHANGED")
+  a:RegisterEvent("PLAYER_FOCUS_CHANGED")
