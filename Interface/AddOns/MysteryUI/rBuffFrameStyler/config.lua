@@ -61,11 +61,11 @@
   }
   
 if GetLocale() == "zhCN" then
-	cfg.font = "Fonts\\ZYKai_T.TTF"
+	cfg.font = "Fonts\\ARKai_T.TTF"
 else
     cfg.font = "Fonts\\bLEI00D.TTF"
 end
-  --cfg.font = "Fonts\\ZYKai_T.TTF"
+  --cfg.font = "Fonts\\ARKai_T.TTF"
 
   -----------------------------
   -- HANDOVER
