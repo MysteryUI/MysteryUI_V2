@@ -18,6 +18,7 @@ UnitFrames.config = {
     autoManaPercent = false,        -- true or false (是否用百分比显示法力值)
     thousandSeparators = true,      -- true or false  是否在1000...1000.000...1000.000.000的.上添加空位隔符
     simpleHealth = true,            -- 是否用K.M.G来精简计数 199.999 (200.000 to 200 k, 3.000.000 to 3 m)
+	RaidHide = false,                -- 是否隐藏暴雪系统团队框体
 }
 
 UnitFrames.config.phrases = {
@@ -84,33 +85,18 @@ _G[cbf.."Icon"]:SetWidth(20)
 
 --[[ 施法计时]]
 _G[cbf].timer = _G[cbf]:CreateFontString(nil)
---[[if GetLocale() == "zhCN" then
-	_G[cbf].timer:SetFont("Fonts\\ZYKai_T.TTF", 13, "THINOUTLINE")
-else
-	_G[cbf].timer:SetFont("Fonts\\bLEI00D.TTF", 13, "THINOUTLINE")
-end]]
 _G[cbf].timer:SetFont(GameFontNormal:GetFont(), 13, "THINOUTLINE")
 _G[cbf].timer:SetPoint("RIGHT", _G[cbf], "RIGHT", 24, 0)
 _G[cbf].update = .1
 
 local tcbf = "TargetFrameSpellBar"
 _G[tcbf].timer = _G[tcbf]:CreateFontString(nil)
---[[if GetLocale() == "zhCN" then
-	_G[tcbf].timer:SetFont("Fonts\\ZYKai_T.TTF", 13, "THINOUTLINE")
-else
-	_G[tcbf].timer:SetFont("Fonts\\bLEI00D.TTF", 13, "THINOUTLINE")
-end]]
 _G[tcbf].timer:SetFont(GameFontNormal:GetFont(), 13, "THINOUTLINE")
 _G[tcbf].timer:SetPoint("RIGHT", _G[tcbf], "RIGHT", 24, 0)
 _G[tcbf].update = .1
 
 local fcbf = "FocusFrameSpellBar"
 _G[fcbf].timer = _G[fcbf]:CreateFontString(nil)
---[[if GetLocale() == "zhCN" then
-	_G[fcbf].timer:SetFont("Fonts\\ZYKai_T.TTF", 13, "THINOUTLINE")
-else
-	_G[fcbf].timer:SetFont("Fonts\\bLEI00D.TTF", 13, "THINOUTLINE")
-end]]
 _G[fcbf].timer:SetFont(GameFontNormal:GetFont(), 13, "THINOUTLINE")
 _G[fcbf].timer:SetPoint("RIGHT", _G[fcbf], "RIGHT", 24, 0)
 _G[fcbf].update = .1
@@ -634,3 +620,28 @@ function w:OnEvent(event, ...)
     end
 end
 w:SetScript("OnEvent", w.OnEvent)
+
+--隐藏系统团队
+--[[
+if UnitFrames.config.RaidHide then
+local frame = CompactRaidFrameManager
+   frame:UnregisterAllEvents()
+   frame.Show = function() end
+   frame:Hide()
+   
+   local frame = CompactRaidFrameContainer
+   frame:UnregisterAllEvents()
+   frame.Show = function() end
+   frame:Hide() 
+end
+   ]]
+if UnitFrames.config.RaidHide then
+ local f = CreateFrame("Frame", nil, UIParent)
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+	f:SetScript("OnEvent", function(self, event)
+			CompactRaidFrameManager:UnregisterAllEvents()
+			CompactRaidFrameManager:Hide()
+			CompactRaidFrameContainer:UnregisterAllEvents()
+			CompactRaidFrameContainer:Hide()
+    end)
+end

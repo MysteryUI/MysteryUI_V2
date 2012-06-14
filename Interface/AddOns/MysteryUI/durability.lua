@@ -21,11 +21,6 @@ local fontstrings = setmetatable({}, {
 
 		local fstr = gslot:CreateFontString(nil, "OVERLAY")
 		local font, _, flags = NumberFontNormal:GetFont()
-	--[[	if GetLocale() == "zhCN" then
-	        fstr:SetFont('Fonts\\ZYKai_T.TTF', 12, 'THINOUTLINE')
-        else
-	        fstr:SetFont('Fonts\\bLEI00D.TTF', 12, 'THINOUTLINE')
-        end]]
 		fstr:SetFont(GameFontNormal:GetFont(), 12, "THINOUTLINE")
 		fstr:SetPoint("CENTER", gslot, "BOTTOM", 0, 8)
 		t[i] = fstr
