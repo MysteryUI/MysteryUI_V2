@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Include file='rBuffFrameStyler\elements.xml' />
 	<Include file='JPack\JPack.xml' />
+	<Include file='oGlow\oGlow.xml' />
 	
 	<Script file='core.lua' />
 	<Script file='Bar.lua' />
