@@ -7,6 +7,8 @@
 ## Notes-zhTW: |cffbc8f8f聊天表情.打開聊天框可見|r
 ## Version: 1.2
 ## OptionalDeps: Tukui
+## X-WoWBox-Ver: 1
+## X-WoWBox-ID: 3340
 
 ChatEmote.lua
 ChatEmoteButton.xml

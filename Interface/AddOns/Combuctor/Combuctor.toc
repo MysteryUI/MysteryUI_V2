@@ -5,6 +5,8 @@
 ## Version: 4.3.3
 ## OptionalDeps: BagBrother, BagSync, Armory, Ace3, LibItemCache-1.0, LibItemSearch-1.0, Unfit-1.0
 ## SavedVariables: CombuctorVersion
+## X-WoWBox-Ver: 1
+## X-WoWBox-ID: 3340
 
 libs\libs.xml
 localization\localization.xml

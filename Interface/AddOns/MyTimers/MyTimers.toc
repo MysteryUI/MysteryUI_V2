@@ -3,6 +3,8 @@
 ## Version: 2+
 ## Interface: 40300
 ## SavedVariablesPerCharacter: MyTimersDB
+## X-WoWBox-Ver: 1
+## X-WoWBox-ID: 3340
 
 localization.lua
 MT_spells.lua
