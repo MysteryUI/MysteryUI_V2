@@ -135,15 +135,57 @@ frame:SetScript("OnEvent", function(self, event, arg1)
 	end
 end)
 end
-
+---------------------------
 --[[移动任务追踪框体]]
+---------------------------
+  local pos = { a1 = "TOPLEFT", a2 = "TOPLEFT", af = "UIParent", x = 70, y = -70 }
+  local watchframeheight = 450
+
+  --提示图标功能
+  local function QWFM_Tooltip(self)
+    GameTooltip:SetOwner(self, "ANCHOR_TOP")
+    GameTooltip:AddLine("拖动!", 0, 1, 0.5, 1, 1, 1)
+    GameTooltip:Show()
+  end
+
+  --让任务追踪框体可以移动
+  local wf = WatchFrame
+  wf:SetClampedToScreen(true)
+  wf:SetMovable(true)
+  wf:SetUserPlaced(true)
+  wf:ClearAllPoints()
+  wf.ClearAllPoints = function() end
+  wf:SetPoint(pos.a1,pos.af,pos.a2,pos.x,pos.y)
+  wf.SetPoint = function() end
+  wf:SetHeight(watchframeheight)
+
+  local wfh = WatchFrameHeader
+  wfh:EnableMouse(true)
+  wfh:RegisterForDrag("LeftButton")
+  wfh:SetHitRectInsets(-15, -15, -5, -5)
+  wfh:SetScript("OnDragStart", function(s)
+    local f = s:GetParent()
+    f:StartMoving()
+  end)
+  wfh:SetScript("OnDragStop", function(s)
+    local f = s:GetParent()
+    f:StopMovingOrSizing()
+  end)
+  wfh:SetScript("OnEnter", function(s)
+    QWFM_Tooltip(s)
+  end)
+  wfh:SetScript("OnLeave", function(s)
+    GameTooltip:Hide()
+  end)
+
+--[[
 if (MoveWatchFrame == true) then
 local _G = _G  
   
 local pos = { a1 = "TOPLEFT", a2 = "TOPLEFT", af = "UIParent", x = 70, y = -70 }
 local watchframeheight = 450
     
-local function rQWFM_Tooltip(self)
+local function QWFM_Tooltip(self)
     GameTooltip:SetOwner(self, "ANCHOR_TOP")
     GameTooltip:Hide()
 end
@@ -174,7 +216,7 @@ local function init()
       f:StopMovingOrSizing()
     end)
     wfh:SetScript("OnEnter", function(s) 
-      rQWFM_Tooltip(s) 
+      QWFM_Tooltip(s) 
     end)
     wfh:SetScript("OnLeave", function(s) 
       GameTooltip:Hide() 
@@ -192,7 +234,7 @@ local a = CreateFrame("Frame")
   
   a:RegisterEvent("PLAYER_LOGIN")
  end
-  
+]]  
 --[[ 盗贼毒药检查 ]]
 if(select(2,UnitClass("player")) ~= "ROGUE" or UnitLevel("player") < 20) then return end
 local f = CreateFrame("Frame")
