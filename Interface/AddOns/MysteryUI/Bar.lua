@@ -1,18 +1,20 @@
-﻿local BarScale = 0.9
+﻿local BarScale = 9
+local HideMainButtonArt = false
+local HideExperienceBar = false
 
 local MenuButtonFrames = {
-	CharacterMicroButton,
-	SpellbookMicroButton,
-	TalentMicroButton,
-	AchievementMicroButton,
-	QuestLogMicroButton,
-	GuildMicroButton,
-	PVPMicroButton,
-	LFDMicroButton,
-	MainMenuMicroButton,
 	HelpMicroButton,
+	MainMenuMicroButton,
 	EJMicroButton,
-	RaidMicroButton,
+	CompanionsMicroButton,		-- Added for 5.x
+	LFDMicroButton,
+	PVPMicroButton,
+	GuildMicroButton,
+	QuestLogMicroButton,
+	AchievementMicroButton,
+	TalentMicroButton,
+	SpellbookMicroButton,
+	CharacterMicroButton,
 }
 
 local BagButtonFrameList = {
@@ -25,6 +27,7 @@ local BagButtonFrameList = {
 }
 
 local ButtonGridIsShown = false
+--local Corner_Artwork_Texture = "Interface\\Addons\\MysteryUI\\MyMedia\\CornerArt"
 local Empty_Art = "Interface\\Addons\\MysteryUI\\MyMedia\\Empty"
 local MouseInSidebar, MouseInCorner = false
 
@@ -40,11 +43,18 @@ CornerMenuFrame:SetWidth(300)
 CornerMenuFrame:SetHeight(128)
 CornerMenuFrame:SetPoint("BOTTOMRIGHT")
 CornerMenuFrame:SetScale(BarScale)
-
+--[[
+CornerMenuFrame.Texture = CornerMenuFrame:CreateTexture(nil,"BACKGROUND")
+CornerMenuFrame.Texture:SetTexture(Corner_Artwork_Texture)
+CornerMenuFrame.Texture:SetPoint("BOTTOMRIGHT")
+CornerMenuFrame.Texture:SetWidth(512*1.09)
+CornerMenuFrame.Texture:SetHeight(128*1.09)
+    ]]
 CornerMenuFrame.MicroButtons = CreateFrame("Frame", nil, CornerMenuFrame)
 CornerMenuFrame.BagButtonFrame = CreateFrame("Frame", nil, CornerMenuFrame)
 
 -- 事件更新
+
 local DelayedEventWatcher = CreateFrame("Frame")
 local DelayedEvents = {}
 local function CheckDelayedEvent(self)
@@ -63,6 +73,7 @@ local function DelayEvent(functionToCall, timeToCall)
 	DelayedEvents[functionToCall] = timeToCall
 	DelayedEventWatcher:SetScript("OnUpdate", CheckDelayedEvent)
 end
+
 -- 事件更新
 
 local function ForceTransparent(frame) 
@@ -72,50 +83,82 @@ end
 
 local function RefreshMainActionBars()
 	local anchor
-	local anchorOffset = 2
+	local anchorOffset = 4
 	local repOffset = 0
+	local initialOffset = 32
 	
-	if MainMenuExpBar:IsShown() then repOffset = 7 end
-	if ReputationWatchBar:IsShown() then repOffset = repOffset + 7 end
+	-- [[
+	-- Hides Rep Bars
+	if HideExperienceBar == true or HideMainButtonArt == true then
+		MainMenuExpBar:Hide()
+		ReputationWatchBar:Hide()
+	end
+	--]]
+	
+	if MainMenuExpBar:IsShown() then repOffset = 9 end
+	if ReputationWatchBar:IsShown() then repOffset = repOffset + 9 end
 		
-	if MultiBarBottomLeft:IsShown() then        
+	if MultiBarBottomLeft:IsShown() then
 		anchor = MultiBarBottomLeft
-		anchorOffset = 2
+		anchorOffset = 4
 	else
 		anchor = ActionButton1;
-		anchorOffset = 2
-	end    
+		anchorOffset = 8 + repOffset
+	end
 
-    if MultiBarBottomRight:IsShown() then
+	--[[
+	ExtraActionBarFrame
+	StanceBarFrame, StanceBarLeft (textures), StanceButton1 (buttons)
+	/run local f = GetMouseFocus(); if f then DEFAULT_CHAT_FRAME:AddMessage(f:GetName()) end
+	--]]
+	
+	if MultiBarBottomRight:IsShown() then
+		--print("MultiBarBottomRight")
 		MultiBarBottomRight:ClearAllPoints()
 		MultiBarBottomRight:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, anchorOffset )
 		anchor = MultiBarBottomRight
-		anchorOffset = 2
-	end
-
-	if ShapeshiftButton1:IsShown() then
-		ShapeshiftButton1:ClearAllPoints();
-		ShapeshiftButton1:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 25, anchorOffset+2);
-		anchor = ShapeshiftButton1
-		anchorOffset = 2
+		anchorOffset = 4
 	end
 	
-	if MultiCastActionBarFrame:IsShown() then	-- 图腾
-		MultiCastActionBarFrame:ClearAllPoints();
-		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 25, anchorOffset+2);
-		anchor = MultiCastActionBarFrame
-		anchorOffset = 2
+	-- 宠物动作条, PetActionButton1
+	if PetActionBarFrame:IsShown() then
+		--print("PetActionBarFrame")
+		PetActionButton1:ClearAllPoints()
+		PetActionButton1:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT",  initialOffset, anchorOffset)
+		anchor = PetActionButton1
+		anchorOffset = 4
 	end
+	
+	-- [[ 姿态栏
+	if StanceBarFrame:IsShown() then
+		--print("StanceBarFrame")
+		StanceButton1:ClearAllPoints();
+		StanceButton1:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, anchorOffset);
+		anchor = StanceButton1
+		--anchorOffset = 4
+		anchorOffset = 4
+	end
+	--]]
+	
+	--[[		-- Totem bar is not in mists
+	if MultiCastActionBarFrame:IsShown() then	-- Totem bar
+		--print("MultiCastActionBarFrame")
+		MultiCastActionBarFrame:ClearAllPoints();
+		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, anchorOffset);
+		anchor = MultiCastActionBarFrame
+		anchorOffset = 4
+	end
+	--]]
 
-	PetActionButton1:ClearAllPoints()
-	PetActionButton1:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 63, anchorOffset+2)
-	anchor = PetActionButton1
-	anchorOffset = 2
+	-- StanceButtonX
 
-	PossessButton1:ClearAllPoints();
-	PossessButton1:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, anchorOffset);
+
+	-- PossessBarFrame, PossessButton1
+	PossessBarFrame:ClearAllPoints();
+	PossessBarFrame:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, anchorOffset);		
 end
 
+	
 function SetSidebarAlpha()
 	local Alpha = 0
 	if MouseInSidebar or ButtonGridIsShown then Alpha = 1 end
@@ -123,7 +166,7 @@ function SetSidebarAlpha()
 		DelayEvent(SetSidebarAlpha, GetTime()+.5)
 	else
 		for i = 1, 12 do
-			--_G["MultiBarRightButton"..i]:SetAlpha(Alpha);
+			_G["MultiBarRightButton"..i]:SetAlpha(Alpha);
 			_G["MultiBarLeftButton"..i]:SetAlpha(Alpha);
 		end
 	end
@@ -159,7 +202,7 @@ local function ConfigureSideBars()
 		SideMouseoverFrame:Show()
 		MultiBarRight:EnableMouse();
 		SideMouseoverFrame:SetPoint("BOTTOMRIGHT", MultiBarRight, "BOTTOMRIGHT", 0,0)
-		-- 右2动作条
+		-- 右侧动作条2
 		if MultiBarLeft:IsShown() then
 			MultiBarLeft:EnableMouse();
 			SideMouseoverFrame:SetPoint("TOPLEFT", MultiBarLeft, "TOPLEFT", -6,0)	
@@ -171,7 +214,7 @@ local function RefreshPositions()
 	if InCombatLockdown() then return end 
 	-- 改变中央按钮和状态栏的大小
     MainMenuBar:SetWidth(512);
-   	MainMenuExpBar:SetWidth(512);
+	MainMenuExpBar:SetWidth(512);
     ReputationWatchBar:SetWidth(512);
     MainMenuBarMaxLevelBar:SetWidth(512);
     ReputationWatchStatusBar:SetWidth(512);
@@ -179,9 +222,11 @@ local function RefreshPositions()
 	-- 隐藏背景
 	ForceTransparent(SlidingActionBarTexture0)
 	ForceTransparent(SlidingActionBarTexture1)
-    ForceTransparent(ShapeshiftBarLeft)
-    ForceTransparent(ShapeshiftBarMiddle)
-    ForceTransparent(ShapeshiftBarRight)
+	-- [[ 变身，光环，姿态栏
+    ForceTransparent(StanceBarLeft)
+    ForceTransparent(StanceBarMiddle)
+    ForceTransparent(StanceBarRight)
+	--]]
     ForceTransparent(PossessBackground1)
     ForceTransparent(PossessBackground2)
 
@@ -191,7 +236,7 @@ local function RefreshPositions()
 end
 
 	
--- 事件处理程序
+-- 事件处理
 local events = {}
 
 function events:ACTIONBAR_SHOWGRID() ButtonGridIsShown = true; SetSidebarAlpha() end
@@ -223,18 +268,18 @@ for eventname in pairs(events) do
 end
 
 -----------------------------------------------------------------------------
--- 系统菜单以及杂项
+-- 操作菜单和背包
 do
-	-- 默认界面更新变化
+	-- 调用更新的函数时，默认界面的变化
 	hooksecurefunc("UIParent_ManageFramePositions", RefreshPositions);
-	-- 需要移动
+	-- 按照要求移动
 	UIPARENT_MANAGED_FRAME_POSITIONS["MultiBarBottomRight"] = nil
 	UIPARENT_MANAGED_FRAME_POSITIONS["PetActionBarFrame"] = nil
 	UIPARENT_MANAGED_FRAME_POSITIONS["ShapeshiftBarFrame"] = nil
 	UIPARENT_MANAGED_FRAME_POSITIONS["PossessBarFrame"] = nil
 	UIPARENT_MANAGED_FRAME_POSITIONS["MultiCastActionBarFrame"] = nil
 	
-	-- 缩放
+	-- 比例
 	MainMenuBar:SetScale(BarScale)
 	MultiBarRight:SetScale(BarScale)
 	MultiBarLeft:SetScale(BarScale)
@@ -245,9 +290,12 @@ do
  	MainMenuBarLeftEndCap:SetPoint("RIGHT", MainMenuBar, "LEFT", 32, 0);
     MainMenuBarRightEndCap:SetPoint("LEFT", MainMenuBar, "RIGHT", -32, 0); 
 	
-
+	-- 隐藏一些不需要的
+	for i = 1, 10 do
+		_G["StanceButton"..i.."NormalTexture2"]:SetTexture(Empty_Art)
+	end
 	
-	-- 隐藏无用的
+	-- 隐藏一些不需要的
 	MainMenuBarPageNumber:Hide();
     ActionBarUpButton:Hide();
     ActionBarDownButton:Hide();
@@ -258,7 +306,7 @@ do
 	MainMenuBarTexture3:SetAlpha(0)
 	for i=1,19 do _G["MainMenuXPBarDiv"..i]:SetTexture(Empty_Art) end
 	
-	-- 隐藏休息状态
+	-- 隐藏休息状态（双倍经验）
 	ExhaustionLevelFillBar:SetTexture(Empty_Art)
 	ExhaustionTick:SetAlpha(0)
 	
@@ -282,11 +330,19 @@ do
 	PetActionBarFrame:SetAttribute("unit", "pet")
 	RegisterUnitWatch(PetActionBarFrame)
 
-	--实质鼠标悬停
+	-- 设置鼠标悬停
 	ConfigureSideBars()
 	SetSidebarAlpha()
 	ConfigureCornerBars()
 	CornerMenuFrame:SetAlpha(0)
+	
+	if HideMainButtonArt == true then
+		-- 隐藏标准背景
+		MainMenuBarTexture0:Hide()
+		MainMenuBarTexture1:Hide()
+		MainMenuBarLeftEndCap:Hide()
+		MainMenuBarRightEndCap:Hide()
+	end
 	
 	MainMenuBar:HookScript("OnShow", function() 
 		--print("Showing")
@@ -297,7 +353,7 @@ end
 -----------------------------------------------------------------------------
 -- 侧面动作条
 do
-	-- 设置
+	-- 安装侧面动作条
 	SideMouseoverFrame:SetScript("OnEnter", function() MouseInSidebar = true; SetSidebarAlpha() end)
 	SideMouseoverFrame:SetScript("OnLeave", function() MouseInSidebar = false;SetSidebarAlpha() end)
 	SideMouseoverFrame:EnableMouse();
@@ -308,95 +364,17 @@ do
 	for i = 1, 12 do HookFrame_SideBar( _G["MultiBarLeftButton"..i] ) end
 end
 
-
------------------------------------------------------------------------------
--- 新东西
-do
-
-	--for i = 1, 12 do HookFrame_SideBar( _G["MultiBarRightButton"..i] ) end
-	
-	--[[
-		MainMenuBar:SetScale(BarScale)
-		MultiBarRight:SetScale(BarScale)
-		MultiBarLeft
-	--]]
-	
-	--MainMenuBarTexture0:SetTexture(Empty_art)
-	--MainMenuBarTexture1:SetTexture(Empty_art)
-	--MainMenuBarLeftEndCap:SetTexture(Empty_art)
-	--MainMenuBarRightEndCap:SetTexture(Empty_art)
-	
-	local function dummy() end
-	
-	-- [[
-	-- /run SetAllButtonShapes()
-	function SetAllButtonShapes()
-		for i = 1, 12 do 
-			local name = "ActionButton"..i
-			local bu = _G["ActionButton"..i]
-			local ic = _G[name.."Icon"]
-			local co  = _G[name.."Count"]
-			local bo  = _G[name.."Border"]
-			local ho  = _G[name.."HotKey"]
-			local cd  = _G[name.."Cooldown"]
-			local na  = _G[name.."Name"]
-			local fl  = _G[name.."Flash"]
-			local nt  = _G[name.."NormalTexture"]
-			
-			--bu:ClearAllPoints()
-			bu:SetHeight(16)
-
-			ic:SetAlpha(.25)
-			ic:ClearAllPoints()
-			ic:SetHeight(16)
-			ic:SetWidth(25)
-			ic:SetPoint("TOPLEFT", bu)
-			print(ic:GetTexture())
-			
-			--local OldSetHeight = ic.SetHeight
-			local function NewSetHeight(...)
-				print(...)
-				--return OldSetHeight(...)
-			end
-			
-			--ic.SetHeight = NewSetHeight
-			
-			--nt:SetAllPoints(bu)
-			--ic:SetAllPoints(bu)
-			--bo:SetAllPoints(bu)
-			
-			--disable resetting of textures
-			--fl.SetTexture = dummy
-			--bu.SetHighlightTexture = dummy
-			--bu.SetPushedTexture = dummy
-			--bu.SetCheckedTexture = dummy
-			--bu.SetNormalTexture = dummy
-			
-			--bo.SetAllPoints = function() bo:SetAllPoints(bu) end
-			--bo.SetPoint = dummy
-			--bo.SetHeight = dummy
-			--bo.SetWidth = dummy
-			--bo.SetSize = dummy
-
-			
-		end
-		
-		print(GetTime(), "Setting Buttons")
-	end
-	
-end
-
 -----------------------------------------------------------------------------
 -- 角落菜单
 do
-	-- 钥匙链等等
+	-- 钥匙链
 	for i, name in pairs(BagButtonFrameList) do
 		name:SetParent(CornerMenuFrame.BagButtonFrame)
 	end
 	
     MainMenuBarBackpackButton:ClearAllPoints();
 	MainMenuBarBackpackButton:SetPoint("BOTTOM");
-	MainMenuBarBackpackButton:SetPoint("RIGHT", -55, 0);
+	MainMenuBarBackpackButton:SetPoint("RIGHT", -60, 0);
 	--MainMenuBarBackpackButton:SetScale(.8)
 	
 	-- 设置上下翻查按钮
@@ -424,19 +402,24 @@ do
 	CornerMouseoverFrame:SetScript("OnLeave", function() CornerMenuFrame:SetAlpha(0)   end)
 end
 
--- 开始菜单
+--开始菜单
 Bar:SetScript("OnEvent", EventHandler);
 Bar:SetFrameStrata("TOOLTIP")
 Bar:Show()
 
---[[
-local function TestEvent(frame, event, ...)
-	if event == "COMBAT_LOG_EVENT_UNFILTERED" or event == "COMBAT_LOG_EVENT" then return end
-	print(event, ...)
-end
-local tester = CreateFrame("Frame", nil, WorldFrame)
-tester:SetScript("OnEvent", TestEvent)
-tester:RegisterAllEvents()
---]]
+SLASH_BAR1 = '/bar'
+SlashCmdList['BAR'] = RefreshPositions;
 
+local function GetMouseoverFrame() 
+	local frame = EnumerateFrames(); -- Get the first frame
+	while frame do
+	  if ( frame:IsVisible() and MouseIsOver(frame) ) then
+		print(frame:GetName() or string.format("[Unnamed Frame: %s]", tostring(frame)), frame.this);
+	  end
+	  if frame and frame.GetObjectType then frame = EnumerateFrames(frame); -- Get the next frame
+	  else frame = nil end
+	end
+end;
 
+SLASH_GETMOUSEOVERFRAME1 = '/getmouseoverframe'
+SlashCmdList['GETMOUSEOVERFRAME'] = GetMouseoverFrame
