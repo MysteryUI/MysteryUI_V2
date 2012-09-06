@@ -1,4 +1,5 @@
-﻿--[[ 选项 ]]
+﻿--MysteryUI核心设置
+--[[ 选项 ]]
 local SellGreyCrap = true           -- 是否自动出售灰色物品.
 local HideHotKeys = true            -- 是否隐藏快捷键和宏在技能栏里的文本
 local HideShapeShift = true         -- 是否隐藏姿态栏
@@ -6,9 +7,26 @@ local HideClock = false             -- 是否隐藏暴雪时钟
 local checkthrown = false           -- 是否检毒药
 local MoveWatchFrame = true         -- 是否移动任务追踪框体
 
+--[[ 添加命令 ]]
+SlashCmdList["FRAME"] = function() print(GetMouseFocus():GetName()) end
+SLASH_FRAME1 = "/frame"--输入此命令检查鼠标位置框体的名称
+
+SlashCmdList["GETPARENT"] = function() print(GetMouseFocus():GetParent():GetName()) end
+SLASH_GETPARENT1 = "/gp"
+SLASH_GETPARENT2 = "/parent"--输入次命令用来检查鼠标位置框体的父框的名称
+
+SlashCmdList["RELOADUI"] = function() ReloadUI() end
+SLASH_RELOADUI1 = "/rl"--重载命令
+
+SlashCmdList["RCSLASH"] = function() DoReadyCheck() end
+SLASH_RCSLASH1 = "/rc"--就位确认
+
+SlashCmdList["TICKET"] = function() ToggleHelpFrame() end
+SLASH_TICKET1 = "/gm"--找GM的命令
+
 --[[ 隐藏姿态栏 ]]
 if (HideShapeShift == true) then
-ShapeshiftBarFrame:Hide()
+StanceBarFrame:Hide()
 end
 
 --[[ 隐藏快捷键和宏在技能栏里的文本 ]]
@@ -18,7 +36,7 @@ local match = string.match;
 local upper = strupper;
 local _G = getfenv(0);
 local f = {"ActionButton%d", "MultiBarBottomLeftButton%d", "MultiBarBottomRightButton%d", "MultiBarRightButton%d",
-			"MultiBarLeftButton%d", "BonusActionButton%d"}
+			"MultiBarLeftButton%d"}           
 do
 	for k, v in pairs(f) do
 		for i = 1, 12 do
@@ -94,22 +112,6 @@ local iRepair = CreateFrame("Frame", "iRepair")
 	end
 end)
 
---[[ 添加命令 ]]
-SlashCmdList["FRAME"] = function() print(GetMouseFocus():GetName()) end
-SLASH_FRAME1 = "/frame"--输入此命令检查鼠标位置框体的名称
-
-SlashCmdList["GETPARENT"] = function() print(GetMouseFocus():GetParent():GetName()) end
-SLASH_GETPARENT1 = "/gp"
-SLASH_GETPARENT2 = "/parent"--输入次命令用来检查鼠标位置框体的父框的名称
-
-SlashCmdList["RELOADUI"] = function() ReloadUI() end
-SLASH_RELOADUI1 = "/rl"--重载命令
-
-SlashCmdList["RCSLASH"] = function() DoReadyCheck() end
-SLASH_RCSLASH1 = "/rc"--就位确认
-
-SlashCmdList["TICKET"] = function() ToggleHelpFrame() end
-SLASH_TICKET1 = "/gm"--找GM的命令
 
 --[[ 隐藏暴雪时钟]]
 if (HideClock == true) then
@@ -138,6 +140,7 @@ end
 ---------------------------
 --[[移动任务追踪框体]]
 ---------------------------
+if (MoveWatchFrame == true) then
   local pos = { a1 = "TOPLEFT", a2 = "TOPLEFT", af = "UIParent", x = 70, y = -70 }
   local watchframeheight = 450
 
@@ -177,64 +180,8 @@ end
   wfh:SetScript("OnLeave", function(s)
     GameTooltip:Hide()
   end)
-
---[[
-if (MoveWatchFrame == true) then
-local _G = _G  
-  
-local pos = { a1 = "TOPLEFT", a2 = "TOPLEFT", af = "UIParent", x = 70, y = -70 }
-local watchframeheight = 450
-    
-local function QWFM_Tooltip(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP")
-    GameTooltip:Hide()
 end
-
-local function init()
-    
-    --使任务追踪移动
-    local wf = _G['WatchFrame']
-    wf:SetClampedToScreen(false)
-    wf:SetMovable(1)
-    wf:SetUserPlaced(true)
-    wf:ClearAllPoints()	
-    wf.ClearAllPoints = function() end
-    wf:SetPoint(pos.a1,pos.af,pos.a2,pos.x,pos.y)
-    wf.SetPoint = function() end
-    wf:SetHeight(watchframeheight)  
-        
-    local wfh = _G['WatchFrameHeader']
-    wfh:EnableMouse(true)
-    wfh:RegisterForDrag("LeftButton")
-    wfh:SetHitRectInsets(-15, -15, -5, -5)
-    wfh:SetScript("OnDragStart", function(s) 
-      local f = s:GetParent()
-      f:StartMoving()
-    end)
-    wfh:SetScript("OnDragStop", function(s) 
-      local f = s:GetParent()
-      f:StopMovingOrSizing()
-    end)
-    wfh:SetScript("OnEnter", function(s) 
-      QWFM_Tooltip(s) 
-    end)
-    wfh:SetScript("OnLeave", function(s) 
-      GameTooltip:Hide() 
-    end)
-
-end
-
-local a = CreateFrame("Frame")
-
-  a:SetScript("OnEvent", function(self, event)
-    if(event=="PLAYER_LOGIN") then
-      init()
-    end
-  end)
-  
-  a:RegisterEvent("PLAYER_LOGIN")
- end
-]]  
+ 
 --[[ 盗贼毒药检查 ]]
 if(select(2,UnitClass("player")) ~= "ROGUE" or UnitLevel("player") < 20) then return end
 local f = CreateFrame("Frame")

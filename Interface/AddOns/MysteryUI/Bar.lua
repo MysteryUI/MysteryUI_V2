@@ -1,4 +1,7 @@
-﻿local BarScale = 9
+﻿--动作条增强
+--by Binny
+
+local BarScale = 0.9
 local HideMainButtonArt = false
 local HideExperienceBar = false
 
@@ -27,7 +30,6 @@ local BagButtonFrameList = {
 }
 
 local ButtonGridIsShown = false
---local Corner_Artwork_Texture = "Interface\\Addons\\MysteryUI\\MyMedia\\CornerArt"
 local Empty_Art = "Interface\\Addons\\MysteryUI\\MyMedia\\Empty"
 local MouseInSidebar, MouseInCorner = false
 
@@ -43,13 +45,6 @@ CornerMenuFrame:SetWidth(300)
 CornerMenuFrame:SetHeight(128)
 CornerMenuFrame:SetPoint("BOTTOMRIGHT")
 CornerMenuFrame:SetScale(BarScale)
---[[
-CornerMenuFrame.Texture = CornerMenuFrame:CreateTexture(nil,"BACKGROUND")
-CornerMenuFrame.Texture:SetTexture(Corner_Artwork_Texture)
-CornerMenuFrame.Texture:SetPoint("BOTTOMRIGHT")
-CornerMenuFrame.Texture:SetWidth(512*1.09)
-CornerMenuFrame.Texture:SetHeight(128*1.09)
-    ]]
 CornerMenuFrame.MicroButtons = CreateFrame("Frame", nil, CornerMenuFrame)
 CornerMenuFrame.BagButtonFrame = CreateFrame("Frame", nil, CornerMenuFrame)
 
@@ -65,7 +60,7 @@ local function CheckDelayedEvent(self)
 			functionToCall()
 		end
 	end
-	-- 检查后放置丢失
+	-- 检查后防止丢失
 	for functionToCall, timeToCall in pairs(DelayedEvents) do pendingEvents = pendingEvents + 1 end
 	if pendingEvents == 0 then DelayedEventWatcher:SetScript("OnUpdate", nil) end
 end
@@ -88,7 +83,7 @@ local function RefreshMainActionBars()
 	local initialOffset = 32
 	
 	-- [[
-	-- Hides Rep Bars
+	-- 隐藏声望条
 	if HideExperienceBar == true or HideMainButtonArt == true then
 		MainMenuExpBar:Hide()
 		ReputationWatchBar:Hide()
@@ -105,12 +100,6 @@ local function RefreshMainActionBars()
 		anchor = ActionButton1;
 		anchorOffset = 8 + repOffset
 	end
-
-	--[[
-	ExtraActionBarFrame
-	StanceBarFrame, StanceBarLeft (textures), StanceButton1 (buttons)
-	/run local f = GetMouseFocus(); if f then DEFAULT_CHAT_FRAME:AddMessage(f:GetName()) end
-	--]]
 	
 	if MultiBarBottomRight:IsShown() then
 		--print("MultiBarBottomRight")
@@ -139,19 +128,6 @@ local function RefreshMainActionBars()
 		anchorOffset = 4
 	end
 	--]]
-	
-	--[[		-- Totem bar is not in mists
-	if MultiCastActionBarFrame:IsShown() then	-- Totem bar
-		--print("MultiCastActionBarFrame")
-		MultiCastActionBarFrame:ClearAllPoints();
-		MultiCastActionBarFrame:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, anchorOffset);
-		anchor = MultiCastActionBarFrame
-		anchorOffset = 4
-	end
-	--]]
-
-	-- StanceButtonX
-
 
 	-- PossessBarFrame, PossessButton1
 	PossessBarFrame:ClearAllPoints();
@@ -207,7 +183,7 @@ local function ConfigureSideBars()
 			MultiBarLeft:EnableMouse();
 			SideMouseoverFrame:SetPoint("TOPLEFT", MultiBarLeft, "TOPLEFT", -6,0)	
 		else SideMouseoverFrame:SetPoint("TOPLEFT", MultiBarRight, "TOPLEFT", -6,0) end
-	else SideMouseoverFrame:Hide() 	end	
+	else SideMouseoverFrame:Hide() 	end
 end
 
 local function RefreshPositions()
@@ -279,7 +255,7 @@ do
 	UIPARENT_MANAGED_FRAME_POSITIONS["PossessBarFrame"] = nil
 	UIPARENT_MANAGED_FRAME_POSITIONS["MultiCastActionBarFrame"] = nil
 	
-	-- 比例
+	-- 缩放
 	MainMenuBar:SetScale(BarScale)
 	MultiBarRight:SetScale(BarScale)
 	MultiBarLeft:SetScale(BarScale)
@@ -357,7 +333,7 @@ do
 	SideMouseoverFrame:SetScript("OnEnter", function() MouseInSidebar = true; SetSidebarAlpha() end)
 	SideMouseoverFrame:SetScript("OnLeave", function() MouseInSidebar = false;SetSidebarAlpha() end)
 	SideMouseoverFrame:EnableMouse();
-		
+	
 	HookFrame_SideBar(MultiBarRight)
 	HookFrame_SideBar(MultiBarLeft)
 	for i = 1, 12 do HookFrame_SideBar( _G["MultiBarRightButton"..i] ) end
@@ -406,20 +382,3 @@ end
 Bar:SetScript("OnEvent", EventHandler);
 Bar:SetFrameStrata("TOOLTIP")
 Bar:Show()
-
-SLASH_BAR1 = '/bar'
-SlashCmdList['BAR'] = RefreshPositions;
-
-local function GetMouseoverFrame() 
-	local frame = EnumerateFrames(); -- Get the first frame
-	while frame do
-	  if ( frame:IsVisible() and MouseIsOver(frame) ) then
-		print(frame:GetName() or string.format("[Unnamed Frame: %s]", tostring(frame)), frame.this);
-	  end
-	  if frame and frame.GetObjectType then frame = EnumerateFrames(frame); -- Get the next frame
-	  else frame = nil end
-	end
-end;
-
-SLASH_GETMOUSEOVERFRAME1 = '/getmouseoverframe'
-SlashCmdList['GETMOUSEOVERFRAME'] = GetMouseoverFrame

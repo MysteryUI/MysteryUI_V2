@@ -1,26 +1,16 @@
---[[ ��ͼ���� ���� Game92, Aftermathh ]]
+﻿--[[ 大地图坐标 来自 Game92, Aftermathh ]]
 local playerColor = RAID_CLASS_COLORS[select(2, UnitClass('player'))]
 
 local f = CreateFrame('Frame')
 f:SetParent(WorldMapButton)
 
 f.cursor = f:CreateFontString(nil, 'OVERLAY')
---[[if GetLocale() == "zhCN" then
-	f.cursor:SetFont('Fonts\\ZYKai_T.TTF', 25, 'THINOUTLINE')
-else
-	f.cursor:SetFont('Fonts\\bLEI00D.TTF', 25, 'THINOUTLINE')
-end]]
 f.cursor:SetFont(GameFontNormal:GetFont(), 25, 'THINOUTLINE')
 f.cursor:SetShadowOffset(1, -1)
 f.cursor:SetJustifyH('LEFT')
 f.cursor:SetPoint('BOTTOMLEFT', WorldMapButton, 'BOTTOM', -225, 2)
 
 f.player = f:CreateFontString(nil, 'OVERLAY')
---[[if GetLocale() == "zhCN" then
-	f.player:SetFont('Fonts\\ZYKai_T.TTF', 25, 'THINOUTLINE')
-else
-	f.player:SetFont('Fonts\\bLEI00D.TTF', 25, 'THINOUTLINE')
-end]]
 f.player:SetFont(GameFontNormal:GetFont(), 25, 'THINOUTLINE')
 f.player:SetTextColor(playerColor.r, playerColor.g, playerColor.b)
 f.player:SetShadowOffset(1, -1)
@@ -37,6 +27,6 @@ f:SetScript('OnUpdate', function()
     mx = (((cx / WorldMapFrame:GetScale()) - (mx - width / 2)) / width + 22 / 10000)
     my = ((((my + height / 2) - (cy / WorldMapFrame:GetScale())) / height) - 262 / 10000)
 
-    f.cursor:SetText(format('Cursor %.2d:%.2d', mx * 100, my * 100))
-    f.player:SetText(format('You %.2d:%.2d', px * 100, py * 100))
+    f.cursor:SetText(format('鼠标的坐标： %.2d:%.2d', mx * 100, my * 100))
+    f.player:SetText(format('自己的坐标： %.2d:%.2d', px * 100, py * 100))
 end)

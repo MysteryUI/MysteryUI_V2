@@ -1,3 +1,5 @@
+-----------------职业颜色---------------
+
 local   UnitIsPlayer, UnitIsConnected, UnitClass, RAID_CLASS_COLORS =
         UnitIsPlayer, UnitIsConnected, UnitClass, RAID_CLASS_COLORS
 local _, class, c
@@ -22,7 +24,7 @@ addon:SetScript("OnEvent", function()
 	colour(sb, "mouseover")
 end)
 
----------------职业颜色---------------
+
   rRAID_CLASS_COLORS = {
   	["HUNTER"] = { r = 0.67, g = 0.83, b = 0.45 },
   	["WARLOCK"] = { r = 0.58, g = 0.51, b = 0.79 },
@@ -34,4 +36,5 @@ end)
   	["SHAMAN"] = { r = 0.0, g = 0.44, b = 0.87 },
   	["WARRIOR"] = { r = 0.78, g = 0.61, b = 0.43 },
   	["DEATHKNIGHT"] = { r = 0.77, g = 0.12 , b = 0.23 },
+	["MONK"] = { r = 0.0, g = 1.0 , b = 0.59 },
   }

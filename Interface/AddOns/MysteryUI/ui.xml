@@ -2,6 +2,7 @@
 	<Include file='rBuffFrameStyler\elements.xml' />
 	<Include file='JPack\JPack.xml' />
 	<Include file ="oGlow\load.xml"/>
+	<Include file ="ChatEmote\ChatEmote.xml"/>
 	
 	<Script file='core.lua' />
 	<Script file='Bar.lua' />

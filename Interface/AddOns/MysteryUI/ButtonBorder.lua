@@ -1,5 +1,6 @@
 -- By Aprikot - http://aprikot.wowinterface.com
 -- Based upon functions within nMainbar by Neal, and thek: Buttonskin by thek
+--按钮边框增强
 
 -- 配置
 local tr, tg, tb, ta = 1, 1, 1, 1 -- 顶部颜色

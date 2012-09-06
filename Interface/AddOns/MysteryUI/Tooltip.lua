@@ -1,4 +1,6 @@
-﻿-- 简洁的公会队伍
+﻿--鼠标提示---
+
+-- 简洁的公会队伍
 local a=CreateFrame("Frame")
 local GameTooltip, GetGuildInfo = GameTooltip, GetGuildInfo
 a:SetScript("OnEvent",function()

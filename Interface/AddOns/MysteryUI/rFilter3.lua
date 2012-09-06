@@ -1,6 +1,6 @@
 ﻿  -- // rFilter3
-  -- // zork - 2010
-
+  -- // zork 
+  --  法术监视
   --get the addon namespace
   local addon, ns = ...
   

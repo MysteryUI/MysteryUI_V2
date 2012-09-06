@@ -1,3 +1,5 @@
+--°´¼ü°ó¶¨
+
 local function IsSpecificButton(self, name)
     local sbut = self:GetName():match(name)
     if (sbut) then
@@ -13,11 +15,6 @@ hooksecurefunc('ActionButton_UpdateHotkeys', function(self)
     if (not IsSpecificButton(self, 'VehicleMenuBarActionButton')) then
             hotkey:ClearAllPoints()
             hotkey:SetPoint('TOPRIGHT', self, 0, -3)
-		--[[	if GetLocale() == "zhCN" then
-	            hotkey:SetFont('Fonts\\ZYKai_T.TTF', 15, 'THINOUTLINE')
-            else
-	            hotkey:SetFont('Fonts\\bLEI00D.TTF', 15, 'THINOUTLINE')
-            end]]
             hotkey:SetFont(GameFontNormal:GetFont(), 15, 'THINOUTLINE')
             hotkey:SetVertexColor(0.6, 0.6, 0.6)
     end

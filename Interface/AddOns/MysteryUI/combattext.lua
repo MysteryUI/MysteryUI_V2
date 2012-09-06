@@ -1,4 +1,5 @@
 ﻿-- Based on LightCT by ALZA
+-- 战斗文本
 
 local cfg = {
 	general = {

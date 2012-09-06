@@ -1,4 +1,6 @@
-﻿--[[ 禁用脏话过滤器 ]]
+﻿--聊天增强
+
+--[[ 禁用脏话过滤器 ]]
 local frame = CreateFrame("FRAME", "DisableProfanityFilter")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 local function eventHandler(self, event, ...)

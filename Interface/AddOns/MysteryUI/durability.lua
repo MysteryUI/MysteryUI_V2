@@ -1,7 +1,8 @@
 -- 基于tekability 来自 Tekkub
+-- 装备耐久
 
 local SLOTIDS = {}
-for _,slot in pairs({"Head", "Shoulder", "Chest", "Waist", "Legs", "Feet", "Wrist", "Hands", "MainHand", "SecondaryHand", "Ranged"}) do SLOTIDS[slot] = GetInventorySlotInfo(slot .. "Slot") end
+for _,slot in pairs({"Head", "Shoulder", "Chest", "Waist", "Legs", "Feet", "Wrist", "Hands", "MainHand", "SecondaryHand"}) do SLOTIDS[slot] = GetInventorySlotInfo(slot .. "Slot") end
 local frame = CreateFrame("Frame", nil, CharacterFrame)
 
 local function RYGColorGradient(perc)

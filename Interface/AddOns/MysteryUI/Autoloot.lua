@@ -1,4 +1,5 @@
 -- by Tarkumi
+--自动拾取功能
 local addon = CreateFrame("Frame", nil, UIParent)
 
 lootables = {
@@ -52,7 +53,7 @@ function addon:event(event, lootmethod)
 			end
 		end	
 	elseif (event == "RAID_ROSTER_UPDATE") or (event == "PARTY_MEMBERS_CHANGED") or (event == "PLAYER_ENTERING_WORLD") then
-		if ( GetNumPartyMembers() > 0 ) or ( GetNumRaidMembers() > 0 ) then
+		if ( GetNumSubgroupMembers() > 0 ) or ( GetNumGroupMembers() > 0 ) then
 			SetCVar( "autoLootDefault", 0 );
 		else
 			SetCVar( "autoLootDefault", 1 );

@@ -1,3 +1,5 @@
+--界面框体增强
+
 local _, class = UnitClass("player")
 
 ---------------------------------------------------
@@ -315,7 +317,7 @@ local function whoa_targetChanged()
 end
 hooksecurefunc("TargetFrame_CheckFaction", whoa_targetChanged)
 
--- Code from Blizzards TargetFrame.lua
+-- 来自TargetFrame.lua守则
 function whoa_targetUpdateAuraPositions(self, auraName, numAuras, numOppositeAuras, largeAuraList, updateFunc, maxRowWidth, offsetX)
     -- aura positioning constants
     local AURA_OFFSET_Y = 3;
@@ -622,19 +624,7 @@ end
 w:SetScript("OnEvent", w.OnEvent)
 
 --隐藏系统团队
---[[
-if UnitFrames.config.RaidHide then
-local frame = CompactRaidFrameManager
-   frame:UnregisterAllEvents()
-   frame.Show = function() end
-   frame:Hide()
-   
-   local frame = CompactRaidFrameContainer
-   frame:UnregisterAllEvents()
-   frame.Show = function() end
-   frame:Hide() 
-end
-   ]]
+
 if UnitFrames.config.RaidHide then
  local f = CreateFrame("Frame", nil, UIParent)
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")

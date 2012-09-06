@@ -12,7 +12,7 @@
 		b = 0.5,
 	}
 	local bottomcolor = {	-- 底部的渐变色 (rgb)
-		r = 0.5,
+    	r = 0.5,
 		g = 0.5,
 		b = 0.5,
 	}
@@ -132,9 +132,9 @@
 		MainMenuXPBarTextureLeftCap,
 		ActionBarUpButton:GetRegions(),
 		ActionBarDownButton:GetRegions(),
-		BonusActionBarFrame:GetRegions(),
+		--BonusActionBarFrame:GetRegions(),
 		--KeyRingButton:GetRegions(),	
-		select(2, BonusActionBarFrame:GetRegions()),
+		--select(2, BonusActionBarFrame:GetRegions()),
         
 --~         MainMenuMaxLevelBar1,
 --~         MainMenuMaxLevelBar2,
