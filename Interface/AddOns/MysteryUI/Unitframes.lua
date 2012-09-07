@@ -17,10 +17,10 @@ UnitFrames.config = {
     largeAuraSize = 24,             -- Blizzard default value is 21
     smallAuraSize = 20,             -- Blizzard default value is 17
     customStatusText = true,        -- true or false (是否自定义状态文本)
-    autoManaPercent = false,        -- true or false (是否用百分比显示法力值)
+    autoManaPercent = true,         -- true or false (是否用百分比显示法力值)
     thousandSeparators = true,      -- true or false  是否在1000...1000.000...1000.000.000的.上添加空位隔符
     simpleHealth = true,            -- 是否用K.M.G来精简计数 199.999 (200.000 to 200 k, 3.000.000 to 3 m)
-	RaidHide = false,                -- 是否隐藏暴雪系统团队框体
+	RaidHide = false,               -- 是否隐藏暴雪系统团队框体
 }
 
 UnitFrames.config.phrases = {
@@ -35,7 +35,7 @@ UnitFrames.config.phrases = {
 
 if UnitFrames.config.SetPoint then
 --[[ 设置位置 ]]
-TargetFrame:ClearAllPoints() TargetFrame:SetPoint("center", 175, -140) 
+TargetFrame:ClearAllPoints() TargetFrame:SetPoint("center", 190, -165) 
 TargetFrameToT:ClearAllPoints() TargetFrameToT:SetPoint("LEFT",TargetFrame,"Top", -15, -1)
 TargetFrameToTTextureFrameName:ClearAllPoints() TargetFrameToTTextureFrameName:SetPoint("LEFT",TargetFrameToT,"Top", -1, -8)
 FocusFrameToT:SetPoint("bottomright", -35, -13)
@@ -46,7 +46,7 @@ TargetFrameSpellBar:ClearAllPoints() TargetFrameSpellBar:SetPoint("CENTER", UIPa
 --[[ 框体固定 ]]
 local function ScrewYouPlayerFrame()
 	PlayerFrame:ClearAllPoints()
-	PlayerFrame:SetPoint("center", -175, -140)
+	PlayerFrame:SetPoint("center", -190, -165)
  end
 
 hooksecurefunc("PlayerFrame_AnimateOut", function() PlayerFrame:SetAlpha(0); ScrewYouPlayerFrame() end)
@@ -55,14 +55,14 @@ hooksecurefunc("PlayerFrame_UpdateStatus", ScrewYouPlayerFrame)
 end
 
 --[[ 缩放设置 ]]
-PlayerFrame:SetScale("1.2")
-TargetFrame:SetScale("1.2")
+PlayerFrame:SetScale("1.0")
+TargetFrame:SetScale("1.0")
 for i=1,4 do _G["PartyMemberFrame"..i]:SetScale("1.3") end
-Boss1TargetFrame:SetScale("1.1")
-Boss2TargetFrame:SetScale("1.1")
-Boss3TargetFrame:SetScale("1.1")
-TargetFrameSpellBar:SetScale("1.1")
-ComboFrame:SetScale("1.3")
+Boss1TargetFrame:SetScale("1.0")
+Boss2TargetFrame:SetScale("1.0")
+Boss3TargetFrame:SetScale("1.0")
+TargetFrameSpellBar:SetScale("1.0")
+ComboFrame:SetScale("1.1")
 
 --[[ 玩家施法条 ]]
 local cbf = "CastingBarFrame"
@@ -87,19 +87,19 @@ _G[cbf.."Icon"]:SetWidth(20)
 
 --[[ 施法计时]]
 _G[cbf].timer = _G[cbf]:CreateFontString(nil)
-_G[cbf].timer:SetFont(GameFontNormal:GetFont(), 13, "THINOUTLINE")
+_G[cbf].timer:SetFont(GameFontNormal:GetFont(), 12, "THINOUTLINE")
 _G[cbf].timer:SetPoint("RIGHT", _G[cbf], "RIGHT", 24, 0)
 _G[cbf].update = .1
 
 local tcbf = "TargetFrameSpellBar"
 _G[tcbf].timer = _G[tcbf]:CreateFontString(nil)
-_G[tcbf].timer:SetFont(GameFontNormal:GetFont(), 13, "THINOUTLINE")
+_G[tcbf].timer:SetFont(GameFontNormal:GetFont(), 12, "THINOUTLINE")
 _G[tcbf].timer:SetPoint("RIGHT", _G[tcbf], "RIGHT", 24, 0)
 _G[tcbf].update = .1
 
 local fcbf = "FocusFrameSpellBar"
 _G[fcbf].timer = _G[fcbf]:CreateFontString(nil)
-_G[fcbf].timer:SetFont(GameFontNormal:GetFont(), 13, "THINOUTLINE")
+_G[fcbf].timer:SetFont(GameFontNormal:GetFont(), 12, "THINOUTLINE")
 _G[fcbf].timer:SetPoint("RIGHT", _G[fcbf], "RIGHT", 24, 0)
 _G[fcbf].update = .1
 
@@ -170,8 +170,8 @@ end
 -- 特定配置
 ---------------------------------------------------
 if class == "PRIEST" then
-    UnitFrames.config.largeAuraSize = 23
-    UnitFrames.config.smallAuraSize = 17
+    UnitFrames.config.largeAuraSize = 24
+    UnitFrames.config.smallAuraSize = 20
     UnitFrames.config.autoManaPercent = false
 end
 if class == "DRUID" then
@@ -201,6 +201,9 @@ end
 if class == "WARRIOR" then
     UnitFrames.config.repositionPartyText = false
 end
+if class == "MONK" then
+    UnitFrames.config.repositionPartyText = false
+end
 
 -------------------------------------------------------------------
 
@@ -213,8 +216,8 @@ local h, hMax, hPercent, m, mMax, mPercent = 0
 ---------------------------------------------------
 -- 队伍
 ---------------------------------------------------
-local function whoa_partyMembersChanged()
-    local partyMembers = GetNumPartyMembers()
+local function partyMembersChanged()
+    local partyMembers = GetNumSubgroupMembers()
     if not InCombatLockdown() and partyMembers > 0 then
         for i = 1, partyMembers do
             color = RAID_CLASS_COLORS[select(2, UnitClass("party"..i))]
@@ -235,11 +238,11 @@ end
 ---------------------------------------------------
 -- 玩家框架
 ---------------------------------------------------
-local function whoa_playerFrame()
+local function playerFrame()
     if not UnitHasVehicleUI("player") then
         PlayerName:SetWidth(0.01)
         PlayerFrameGroupIndicatorText:ClearAllPoints()
-        PlayerFrameGroupIndicatorText:SetPoint("BOTTOMLEFT", PlayerFrame, "TOP", 0, -20)
+        PlayerFrameGroupIndicatorText:SetPoint("BOTTOMLEFT", PlayerFrame, "TOP", 0, -16)
         PlayerFrameGroupIndicatorLeft:Hide()
         PlayerFrameGroupIndicatorMiddle:Hide()
         PlayerFrameGroupIndicatorRight:Hide()
@@ -275,18 +278,18 @@ local function whoa_playerFrame()
         PlayerFrameManaBar:SetHeight(12)
     end
 end
-hooksecurefunc("PlayerFrame_UpdateArt", whoa_playerFrame)
-hooksecurefunc("PlayerFrame_SequenceFinished", whoa_playerFrame)
+hooksecurefunc("PlayerFrame_UpdateArt", playerFrame)
+hooksecurefunc("PlayerFrame_SequenceFinished", playerFrame)
 
 ---------------------------------------------------
 -- 目标框体
 ---------------------------------------------------
-local function whoa_targetFrame()
-    TargetFrame.nameBackground:Hide()
+local function targetFrame()
+	TargetFrame.Background:SetPoint("TOPLEFT",7,-22);
     TargetFrame.deadText:ClearAllPoints()
     TargetFrame.deadText:SetPoint("CENTER", TargetFrameHealthBar, "CENTER", 0, 0)
     TargetFrameTextureFrameName:ClearAllPoints()
-    TargetFrameTextureFrameName:SetPoint("BOTTOMRIGHT", TargetFrame, "TOP", 0, -20)
+    TargetFrameTextureFrameName:SetPoint("BOTTOMRIGHT", TargetFrame, "TOP", 0, -16)
     TargetFrameHealthBar:ClearAllPoints()
     TargetFrameHealthBar:SetPoint("TOPLEFT", 5, -24)
     TargetFrameHealthBar:SetHeight(26)
@@ -300,7 +303,7 @@ local function whoa_targetFrame()
     TargetFrame.threatNumericIndicator:SetPoint("BOTTOM", PlayerFrame, "TOP", 75, -22)
 end
 
-local function whoa_targetChanged()
+local function targetChanged()
     if UnitIsPlayer("target") and config.classColorTarget then
         color = RAID_CLASS_COLORS[select(2, UnitClass("target"))]
     else
@@ -314,12 +317,13 @@ local function whoa_targetChanged()
             TargetFrameHealthBar.lockColor = true
         end
     end
+	TargetFrame.nameBackground:Hide()
 end
-hooksecurefunc("TargetFrame_CheckFaction", whoa_targetChanged)
+hooksecurefunc("TargetFrame_CheckFaction", targetChanged)
 
 -- 来自TargetFrame.lua守则
-function whoa_targetUpdateAuraPositions(self, auraName, numAuras, numOppositeAuras, largeAuraList, updateFunc, maxRowWidth, offsetX)
-    -- aura positioning constants
+function targetUpdateAuraPositions(self, auraName, numAuras, numOppositeAuras, largeAuraList, updateFunc, maxRowWidth, offsetX)
+    -- 光环定位
     local AURA_OFFSET_Y = 3;
     local LARGE_AURA_SIZE = config.largeAuraSize;
     local SMALL_AURA_SIZE = config.smallAuraSize;
@@ -356,13 +360,14 @@ function whoa_targetUpdateAuraPositions(self, auraName, numAuras, numOppositeAur
         end
     end
 end
-hooksecurefunc("TargetFrame_UpdateAuraPositions", whoa_targetUpdateAuraPositions)
+hooksecurefunc("TargetFrame_UpdateAuraPositions", targetUpdateAuraPositions)
+
 
 ---------------------------------------------------
 -- 焦点框体
 ---------------------------------------------------
-local function whoa_focusFrame()
-    FocusFrame.nameBackground:Hide()
+local function focusFrame()
+	FocusFrame.Background:SetPoint("TOPLEFT",7,-22);
     FocusFrame.deadText:ClearAllPoints()
     FocusFrame.deadText:SetPoint("CENTER", FocusFrameHealthBar, "CENTER", 0, 0)
     FocusFrameTextureFrameName:ClearAllPoints()
@@ -381,7 +386,7 @@ local function whoa_focusFrame()
     FocusFrameTextureFrameManaBarText:SetPoint("CENTER", FocusFrameManaBar, "CENTER", 0, 0)
 end
 
-local function whoa_focusChanged()
+local function focusChanged()
     if UnitIsPlayer("focus") and config.classColorFocus then
         color = RAID_CLASS_COLORS[select(2, UnitClass("focus"))]
     else
@@ -391,6 +396,7 @@ local function whoa_focusChanged()
         FocusFrameHealthBar:SetStatusBarColor(color.r, color.g, color.b)
         FocusFrameHealthBar.lockColor = true
     end
+	FocusFrame.nameBackground:Hide()
 end
 
 ---------------------------------------------------
@@ -425,7 +431,7 @@ end
 ---------------------------------------------------
 -- 文本
 ---------------------------------------------------
-local function whoa_createFrame(name, parent, point, xOffset, yOffset, width, alignment)
+local function createFrame(name, parent, point, xOffset, yOffset, width, alignment)
     local f = CreateFrame("Frame", name, parent)
     f:SetPoint(point, parent, point, xOffset, yOffset)
     f:SetWidth(width)
@@ -436,44 +442,44 @@ local function whoa_createFrame(name, parent, point, xOffset, yOffset, width, al
     f.text:SetJustifyH(alignment)
 end
 
-whoa_createFrame("fplayerdead",        PlayerFrameHealthBar, "CENTER",  0, 0, 200, "CENTER")
-whoa_createFrame("fplayerpercent",     PlayerFrameHealthBar, "LEFT",    0, 0,  40, "RIGHT")
-whoa_createFrame("fplayerhealth",      PlayerFrameHealthBar, "RIGHT",  -5, 0,  75, "RIGHT")
-whoa_createFrame("fplayermanapercent", PlayerFrameManaBar,   "LEFT",    0, 0,  40, "RIGHT")
-whoa_createFrame("fplayermana",        PlayerFrameManaBar,   "RIGHT",  -5, 0,  75, "RIGHT")
+createFrame("fplayerdead",        PlayerFrameHealthBar, "CENTER",  0, 0, 200, "CENTER")
+createFrame("fplayerpercent",     PlayerFrameHealthBar, "LEFT",    0, 0,  40, "RIGHT")
+createFrame("fplayerhealth",      PlayerFrameHealthBar, "RIGHT",  -5, 0,  75, "RIGHT")
+createFrame("fplayermanapercent", PlayerFrameManaBar,   "LEFT",    0, 0,  40, "RIGHT")
+createFrame("fplayermana",        PlayerFrameManaBar,   "RIGHT",  -5, 0,  75, "RIGHT")
 
-whoa_createFrame("ftargetdead",        TargetFrameHealthBar, "CENTER",  0, 0, 200, "CENTER")
-whoa_createFrame("ftargetoffline",     TargetFrameManaBar,   "CENTER",  0, 0, 200, "CENTER")
-whoa_createFrame("ftargetpercent",     TargetFrameHealthBar, "LEFT",    0, 0,  40, "RIGHT")
-whoa_createFrame("ftargethealth",      TargetFrameHealthBar, "RIGHT",  -5, 0,  75, "RIGHT")
-whoa_createFrame("ftargetmanapercent", TargetFrameManaBar,   "LEFT",    0, 0,  40, "RIGHT")
-whoa_createFrame("ftargetmana",        TargetFrameManaBar,   "RIGHT",  -5, 0,  75, "RIGHT")
+createFrame("ftargetdead",        TargetFrameHealthBar, "CENTER",  0, 0, 200, "CENTER")
+createFrame("ftargetoffline",     TargetFrameManaBar,   "CENTER",  0, 0, 200, "CENTER")
+createFrame("ftargetpercent",     TargetFrameHealthBar, "LEFT",    0, 0,  40, "RIGHT")
+createFrame("ftargethealth",      TargetFrameHealthBar, "RIGHT",  -5, 0,  75, "RIGHT")
+createFrame("ftargetmanapercent", TargetFrameManaBar,   "LEFT",    0, 0,  40, "RIGHT")
+createFrame("ftargetmana",        TargetFrameManaBar,   "RIGHT",  -5, 0,  75, "RIGHT")
 
-whoa_createFrame("ffocusdead",         FocusFrameHealthBar,  "CENTER",  0, 0, 200, "CENTER")
-whoa_createFrame("ffocusoffline",      FocusFrameManaBar,    "CENTER",  0, 0, 200, "CENTER")
-whoa_createFrame("ffocuspercent",      FocusFrameHealthBar,  "LEFT",    0, 0,  40, "RIGHT")
-whoa_createFrame("ffocushealth",       FocusFrameHealthBar,  "RIGHT",  -5, 0,  75, "RIGHT")
-whoa_createFrame("ffocusmanapercent",  FocusFrameManaBar,    "LEFT",    0, 0,  40, "RIGHT")
-whoa_createFrame("ffocusmana",         FocusFrameManaBar,    "RIGHT",  -5, 0,  75, "RIGHT")
+createFrame("ffocusdead",         FocusFrameHealthBar,  "CENTER",  0, 0, 200, "CENTER")
+createFrame("ffocusoffline",      FocusFrameManaBar,    "CENTER",  0, 0, 200, "CENTER")
+createFrame("ffocuspercent",      FocusFrameHealthBar,  "LEFT",    0, 0,  40, "RIGHT")
+createFrame("ffocushealth",       FocusFrameHealthBar,  "RIGHT",  -5, 0,  75, "RIGHT")
+createFrame("ffocusmanapercent",  FocusFrameManaBar,    "LEFT",    0, 0,  40, "RIGHT")
+createFrame("ffocusmana",         FocusFrameManaBar,    "RIGHT",  -5, 0,  75, "RIGHT")
 
-local function whoa_round(n, dp)
+local function round(n, dp)
     return math.floor((n * 10^dp) + .5) / (10^dp)
 end
 
-local function whoa_format(n)
+local function format(n)
     local strLen = strlen(n)
     if not config.customStatusText then
         return n
     end
 --  if config.simpleHealth and n > 999999999 then
     if config.simpleHealth and strLen > 9 then
-        return whoa_round(n/1e9, 1)..config.phrases["giga"]
+        return round(n/1e9, 1)..config.phrases["giga"]
 --  elseif config.simpleHealth and n > 999999 then
     elseif config.simpleHealth and strLen > 6 then
-        return whoa_round(n/1e6, 1)..config.phrases["mega"]
+        return round(n/1e6, 1)..config.phrases["mega"]
 --  elseif config.simpleHealth and strLen > 5 then -- no simpleHealth under 100.000
     elseif config.simpleHealth and n > 199999 then -- no simpleHealth under 199.999
-        return whoa_round(n/1e3, 0)..config.phrases["kilo"]
+        return round(n/1e3, 0)..config.phrases["kilo"]
     elseif config.thousandSeparators then
         local left, num, right = string.match(n, '^([^%d]*%d)(%d*)(.-)')
         return left..(num:reverse():gsub('(%d%d%d)', '%1'..config.phrases["1000 separator"]):reverse())..right
@@ -482,7 +488,7 @@ local function whoa_format(n)
     end
 end
 
-local function whoa_unitText(unit)
+local function unitText(unit)
     if config.customStatusText and (unit == "player" or unit == "target" or unit == "focus") then
         h = UnitHealth(unit)
         if UnitIsDeadOrGhost(unit) then
@@ -498,7 +504,7 @@ local function whoa_unitText(unit)
             _G["f"..unit.."dead"]:Hide()
             if (unit == "player" and GetCVarBool("playerStatusText")) or (not (unit == "player") and GetCVarBool("targetStatusText")) then
                 _G["f"..unit.."health"]:Show()
-                _G["f"..unit.."health"].text:SetText(whoa_format(h))
+                _G["f"..unit.."health"].text:SetText(format(h))
                 if GetCVarBool("statusTextPercentage") then
                     hMax = UnitHealthMax(unit)
                     hPercent = math.floor((h / hMax) * 100)
@@ -519,7 +525,7 @@ local function whoa_unitText(unit)
                 _G["f"..unit.."manapercent"]:Hide()
             elseif (unit == "player" and GetCVarBool("playerStatusText")) or (not (unit == "player") and GetCVarBool("targetStatusText")) then
                 _G["f"..unit.."mana"]:Show()
-                _G["f"..unit.."mana"].text:SetText(whoa_format(m))
+                _G["f"..unit.."mana"].text:SetText(format(m))
                 local showManaPercent = false
                 if config.autoManaPercent then
                     if UnitPowerType(unit) == 0 then
@@ -572,15 +578,15 @@ if config.customStatusText then
     FocusFrameTextureFrameManaBarText:Hide()
 end
 
-local function whoa_cvarUpdate()
+local function cvarUpdate()
     if GetCVarBool("fullSizeFocusFrame") then
-        FocusFrameTextureFrameName:SetPoint("BOTTOMRIGHT", FocusFrame, "TOP", 0, -20)
+        FocusFrameTextureFrameName:SetPoint("BOTTOMRIGHT", FocusFrame, "TOP", 0, -16)
     else
-        FocusFrameTextureFrameName:SetPoint("BOTTOMRIGHT", FocusFrame, "TOP", 10, -20)
+        FocusFrameTextureFrameName:SetPoint("BOTTOMRIGHT", FocusFrame, "TOP", 10, -16)
     end
-    whoa_unitText("player")
-    whoa_unitText("target")
-    whoa_unitText("focus")
+    unitText("player")
+    unitText("target")
+    unitText("focus")
 end
 
 ---------------------------------------------------
@@ -599,26 +605,26 @@ if config.classColorParty then
 end
 function w:OnEvent(event, ...)
     if event == "PLAYER_ENTERING_WORLD" then
-        whoa_playerFrame()
-        whoa_targetFrame()
-        whoa_focusFrame()
-        whoa_cvarUpdate()
-        whoa_unitText("player")
+        playerFrame()
+        targetFrame()
+        focusFrame()
+        cvarUpdate()
+        unitText("player")
     elseif event == "PLAYER_REGEN_ENABLED" then
-        whoa_playerFrame()
+        playerFrame()
     elseif event == "PLAYER_TARGET_CHANGED" then
-        whoa_targetChanged()
-        whoa_unitText("target")
+        targetChanged()
+        unitText("target")
     elseif event == "PLAYER_FOCUS_CHANGED" then
-        whoa_focusChanged()
-        whoa_unitText("focus")
+        focusChanged()
+        unitText("focus")
     elseif event == "UNIT_HEALTH" or event == "UNIT_POWER" then
         local arg1 = ...
-        whoa_unitText(arg1)
+        unitText(arg1)
     elseif event == "CVAR_UPDATE" then
-        whoa_cvarUpdate()
+        cvarUpdate()
     elseif event == "PARTY_MEMBERS_CHANGED" then
-        whoa_partyMembersChanged()
+        partyMembersChanged()
     end
 end
 w:SetScript("OnEvent", w.OnEvent)
