@@ -2024,7 +2024,7 @@ end
       f.iconframe.count:SetText("3")
       return
     end
-    if f.spec and f.spec ~= GetActiveTalentGroup() then
+    if f.spec and f.spec ~= GetActiveSpecGroup() then
       f.iconframe:SetAlpha(0)
       return
     end

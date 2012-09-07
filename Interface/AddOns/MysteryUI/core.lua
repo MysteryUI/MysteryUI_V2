@@ -191,8 +191,8 @@ f:RegisterEvent("PLAYER_LEAVE_COMBAT")
 f:SetScript("OnEvent", function()
 	local main, _, _, off, _, _, thrown = GetWeaponEnchantInfo()
 	if not UnitInVehicle("player") and(not main or not off or(not thrown and checkthrown == true)) then
-		DEFAULT_CHAT_FRAME:AddMessage("############ 沒毒藥了 ############", 1.0,0.96,0.41)  --聊天框提示.
-		UIErrorsFrame:AddMessage("############ 沒毒藥了 ############", 1.0, 0.96, 0.41, 1.0);  --屏幕醒目提示.
+		--DEFAULT_CHAT_FRAME:AddMessage("##### 沒毒藥了 #####", 1.0,0.96,0.41)  --聊天框提示.
+		UIErrorsFrame:AddMessage("##### 沒毒藥了 #####", 1.0, 0.96, 0.41, 1.0);  --屏幕醒目提示.
 	end
 end)
 
