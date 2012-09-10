@@ -141,7 +141,7 @@ end
 --[[移动任务追踪框体]]
 ---------------------------
 if (MoveWatchFrame == true) then
-  local pos = { a1 = "TOPLEFT", a2 = "TOPLEFT", af = "UIParent", x = 70, y = -70 }
+  local pos = { a1 = "RIGHT", a2 = "RIGHT", af = "UIParent", x = -100, y = -70  }
   local watchframeheight = 450
 
   --提示图标功能
