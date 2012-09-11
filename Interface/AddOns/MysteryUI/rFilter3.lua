@@ -1348,7 +1348,11 @@ if player_class == "WARRIOR" then
     cfg.rf3_DebuffList = {
       [1] = {
         spec = nil,
-        spellid = 94009, -- Rend
+        spellid = 86346, -- Col Smash
+--~ 		spelllist = { --check a list instead because other classes can do the same
+--~           [1] = 1130,
+--~           [2] = 88691,
+--~         },
         size = 28,
         pos = { a1 = "BOTTOM", a2 = "BOTTOM", af = "UIParent", x = 108, y = 410 },
         unit = "target",
@@ -1366,29 +1370,6 @@ if player_class == "WARRIOR" then
         },
       },
       [2] = {
-        spec = nil,
-        spellid = 86346, -- Col Smash
---~ 		spelllist = { --check a list instead because other classes can do the same
---~           [1] = 1130,
---~           [2] = 88691,
---~         },
-        size = 28,
-        pos = { a1 = "BOTTOM", a2 = "BOTTOM", af = "UIParent", x = 138, y = 410 },
-        unit = "target",
-        ismine = true,
-        desaturate = true,
-        alpha = {
-          found = {
-            frame = 1,
-            icon = 1,
-          },
-          not_found = {
-            frame = 0.0,
-            icon = 0.6,          
-          },
-        },
-      },
-      [3] = {
         spec = 2, 
         spellid = 1160, --demo shout
         spelllist = { --check a list instead because other classes can do the same
@@ -1401,7 +1382,7 @@ if player_class == "WARRIOR" then
           [7] = 24423,
         },
         size = 26,
-        pos = { a1 = "BOTTOM", a2 = "BOTTOM", af = "UIParent", x = 168, y = 410 },
+        pos = { a1 = "BOTTOM", a2 = "BOTTOM", af = "UIParent", x = 138, y = 410 },
         unit = "target",
         validate_unit = true, --only show the icon if unit is found
         hide_ooc      = true, --hide icon out of combat

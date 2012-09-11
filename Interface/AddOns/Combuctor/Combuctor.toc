@@ -6,6 +6,7 @@
 ## Version: 5.0.2
 ## OptionalDeps: BagBrother, BagSync, Armory, Ace3, LibItemCache-1.0, LibItemSearch-1.0, Unfit-1.0
 ## SavedVariables: CombuctorVersion, CombuctorDB2
+## RequiredDeps: MysteryUI
 ## X-WoWBox-Ver: 1
 ## X-WoWBox-ID: 3340
 libs\libs.xml

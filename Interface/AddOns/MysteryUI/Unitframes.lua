@@ -35,9 +35,10 @@ UnitFrames.config.phrases = {
 
 if UnitFrames.config.SetPoint then
 --[[ 设置位置 ]]
-TargetFrame:ClearAllPoints() TargetFrame:SetPoint("center", 190, -165) 
+TargetFrame:ClearAllPoints() TargetFrame:SetPoint("center", 200, -165) 
 TargetFrameToT:ClearAllPoints() TargetFrameToT:SetPoint("LEFT",TargetFrame,"Top", -15, -1)
 TargetFrameToTTextureFrameName:ClearAllPoints() TargetFrameToTTextureFrameName:SetPoint("LEFT",TargetFrameToT,"Top", -1, -8)
+FocusFrame:SetPoint("topleft", 255, -150)
 FocusFrameToT:SetPoint("bottomright", -35, -13)
 PartyMemberFrame1:ClearAllPoints() PartyMemberFrame1:SetPoint("topleft", 255, -275)
 Boss1TargetFrame:ClearAllPoints() Boss1TargetFrame:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-140,-430) Boss1TargetFrame.SetPoint=function()end
@@ -46,7 +47,7 @@ TargetFrameSpellBar:ClearAllPoints() TargetFrameSpellBar:SetPoint("CENTER", UIPa
 --[[ 框体固定 ]]
 local function ScrewYouPlayerFrame()
 	PlayerFrame:ClearAllPoints()
-	PlayerFrame:SetPoint("center", -190, -165)
+	PlayerFrame:SetPoint("center", -200, -165)
  end
 
 hooksecurefunc("PlayerFrame_AnimateOut", function() PlayerFrame:SetAlpha(0); ScrewYouPlayerFrame() end)
@@ -61,7 +62,7 @@ for i=1,4 do _G["PartyMemberFrame"..i]:SetScale("1.3") end
 Boss1TargetFrame:SetScale("1.0")
 Boss2TargetFrame:SetScale("1.0")
 Boss3TargetFrame:SetScale("1.0")
-TargetFrameSpellBar:SetScale("1.0")
+TargetFrameSpellBar:SetScale("1.1")
 ComboFrame:SetScale("1.1")
 
 --[[ 玩家施法条 ]]
@@ -69,11 +70,11 @@ local cbf = "CastingBarFrame"
 local cbbs = "Interface\\CastingBar\\UI-CastingBar-Border-Small"
 local cbfs = "Interface\\CastingBar\\UI-CastingBar-Flash-Small"
 
-_G[cbf]:SetSize(180,10)
-_G[cbf.."Border"]:SetSize(240,40)
+_G[cbf]:SetSize(140,10)
+_G[cbf.."Border"]:SetSize(190,40)
 _G[cbf.."Border"]:SetPoint("TOP", _G[cbf], 0, 15)
 _G[cbf.."Border"]:SetTexture(cbbs)
-_G[cbf.."Flash"]:SetSize(240,40)
+_G[cbf.."Flash"]:SetSize(190,40)
 _G[cbf.."Flash"]:SetPoint("TOP", _G[cbf], 0, 15)
 _G[cbf.."Flash"]:SetTexture(cbfs)
 _G[cbf]:SetScale("1.2")
@@ -87,19 +88,19 @@ _G[cbf.."Icon"]:SetWidth(20)
 
 --[[ 施法计时]]
 _G[cbf].timer = _G[cbf]:CreateFontString(nil)
-_G[cbf].timer:SetFont(GameFontNormal:GetFont(), 12, "THINOUTLINE")
+_G[cbf].timer:SetFont(GameFontNormal:GetFont(), 14, "THINOUTLINE")
 _G[cbf].timer:SetPoint("RIGHT", _G[cbf], "RIGHT", 24, 0)
 _G[cbf].update = .1
 
 local tcbf = "TargetFrameSpellBar"
 _G[tcbf].timer = _G[tcbf]:CreateFontString(nil)
-_G[tcbf].timer:SetFont(GameFontNormal:GetFont(), 12, "THINOUTLINE")
+_G[tcbf].timer:SetFont(GameFontNormal:GetFont(), 14, "THINOUTLINE")
 _G[tcbf].timer:SetPoint("RIGHT", _G[tcbf], "RIGHT", 24, 0)
 _G[tcbf].update = .1
 
 local fcbf = "FocusFrameSpellBar"
 _G[fcbf].timer = _G[fcbf]:CreateFontString(nil)
-_G[fcbf].timer:SetFont(GameFontNormal:GetFont(), 12, "THINOUTLINE")
+_G[fcbf].timer:SetFont(GameFontNormal:GetFont(), 14, "THINOUTLINE")
 _G[fcbf].timer:SetPoint("RIGHT", _G[fcbf], "RIGHT", 24, 0)
 _G[fcbf].update = .1
 
@@ -121,10 +122,10 @@ end)
 
 --[[ 焦点施法条 ]]
 hooksecurefunc(FocusFrameSpellBar, "Show", function()
-    FocusFrameSpellBar:SetScale("1.2")
+    FocusFrameSpellBar:SetScale("1.1")
 	FocusFrameSpellBar:ClearAllPoints()
 	if UnitFrames.config.SetPoint then
-	FocusFrameSpellBar:SetPoint("CENTER", UIParent, "CENTER", 0, 150)
+	FocusFrameSpellBar:SetPoint("CENTER", UIParent, "CENTER", 0, 200)
 	FocusFrameSpellBar.SetPoint = function() end
 	end
 end)

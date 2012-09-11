@@ -5,6 +5,7 @@
 ## Version: V5
 ## Interface: 50001
 ## SavedVariablesPerCharacter: ControlTimersDB
+## RequiredDeps: MysteryUI
 ## X-WoWBox-Ver: 1
 ## X-WoWBox-ID: 3340
 

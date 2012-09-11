@@ -1,7 +1,7 @@
 ﻿--MysteryUI核心设置
 --[[ 选项 ]]
 local SellGreyCrap = true           -- 是否自动出售灰色物品.
-local HideHotKeys = true            -- 是否隐藏快捷键和宏在技能栏里的文本
+local HideHotKeys = false            -- 是否隐藏快捷键和宏在技能栏里的文本
 local HideShapeShift = true         -- 是否隐藏姿态栏
 local HideClock = false             -- 是否隐藏暴雪时钟
 local checkthrown = false           -- 是否检毒药
