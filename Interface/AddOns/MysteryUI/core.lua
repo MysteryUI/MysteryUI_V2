@@ -204,3 +204,8 @@ f:SetScript("OnEvent", function()
 	SetCVar("CameraDistanceMaxFactor", 3.4)
 end)
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+--离开战斗回收插件内存
+local F = CreateFrame("Frame") 
+   F:RegisterEvent("PLAYER_REGEN_ENABLED") 
+   F:SetScript("OnEvent", function() _G.collectgarbage("collect") end) 
