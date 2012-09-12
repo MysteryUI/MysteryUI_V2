@@ -38,9 +38,9 @@ if UnitFrames.config.SetPoint then
 TargetFrame:ClearAllPoints() TargetFrame:SetPoint("center", 200, -165) 
 TargetFrameToT:ClearAllPoints() TargetFrameToT:SetPoint("LEFT",TargetFrame,"Top", -15, -1)
 TargetFrameToTTextureFrameName:ClearAllPoints() TargetFrameToTTextureFrameName:SetPoint("LEFT",TargetFrameToT,"Top", -1, -8)
-FocusFrame:SetPoint("topleft", 255, -150)
+FocusFrame:SetPoint("topleft", 250, -140)
 FocusFrameToT:SetPoint("bottomright", -35, -13)
-PartyMemberFrame1:ClearAllPoints() PartyMemberFrame1:SetPoint("topleft", 255, -275)
+PartyMemberFrame1:ClearAllPoints() PartyMemberFrame1:SetPoint("topleft", 150, -240)
 Boss1TargetFrame:ClearAllPoints() Boss1TargetFrame:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-140,-430) Boss1TargetFrame.SetPoint=function()end
 TargetFrameSpellBar:ClearAllPoints() TargetFrameSpellBar:SetPoint("CENTER", UIParent, "CENTER", 0, -80) TargetFrameSpellBar.SetPoint=function()end
 

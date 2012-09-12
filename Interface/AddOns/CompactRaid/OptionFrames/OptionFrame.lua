@@ -457,8 +457,8 @@ local function InitOptionData(db, chardb)
 	LoadOption("hideToolboxes", 1)
 
 	LoadOption("hidebarbkgnd", 1)
-	LoadOption("showSolo")
-	LoadOption("showParty")
+	LoadOption("showSolo", 0)
+	LoadOption("showParty", 0)
 	LoadOption("showPartyPets", nil, nil, nil, 1)
 	LoadOption("showRaidPets", nil, nil, nil, 1)
 
