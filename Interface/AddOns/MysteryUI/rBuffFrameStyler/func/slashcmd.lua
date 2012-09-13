@@ -45,7 +45,7 @@
       rBFS_lockFrames()
     else
       print("|c0000FFFFrBuffFrameStyler 命令列表:|r")
-      print("|c0000FFFF\/rbuff lock|r, t鎖定")
+      print("|c0000FFFF\/rbuff lock|r, 鎖定")
       print("|c0000FFFF\/rbuff unlock|r, 解鎖")
     end
   end

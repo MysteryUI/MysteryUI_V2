@@ -23,7 +23,7 @@
     rowSpacing      = 7,
     colSpacing      = 7,
     buffsPerRow     = 10,
-    gap             = 240, --gap in pixel between buff and debuff
+    gap             = 80, --gap in pixel between buff and debuff
   }
 
   cfg.tempenchant = {

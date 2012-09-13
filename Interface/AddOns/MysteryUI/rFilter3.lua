@@ -1757,15 +1757,17 @@ end
     
   end
   
-  if player_name == "Wolowizard" and player_class == "MAGE" then
-    cfg.rf3_DebuffList = {
-      [1] = {
-        spec = nil, 
-        spellid = 36032, --arcane blast debuff
-        size = 32, 
-        pos = { a1 = "BOTTOM", a2 = "BOTTOM", af = "UIParent", x = -150, y = 173 },
+  if player_class == "MAGE" then
+  -- Buffs
+  cfg.rf3_BuffList = {
+    [1] = {
+        spec = nil,
+        spellid = 48108, -- 瞬发炎爆术
+        size = 30,
+        pos = { a1 = "BOTTOM", a2 = "BOTTOM", af = "UIParent", x = -105, y = 320 },
         unit = "player",
-        ismine = false,
+        ismine = true,
+        hide_ooc = false,
         desaturate = true,
         alpha = {
           found = {
@@ -1773,12 +1775,53 @@ end
             icon = 1,
           },
           not_found = {
-            frame = 0,
+            frame = 0.0,
             icon = 0.6,          
           },
         },
       },
-    }
+	}
+    -- Debuffs    
+  cfg.rf3_DebuffList = {
+    [1] = {
+        spec = nil,
+        spellid = 44457, -- 活体炸弹
+        size = 30,
+        pos = { a1 = "BOTTOM", a2 = "BOTTOM", af = "UIParent", x = 145, y = 320 },
+        unit = "target",
+        ismine = true,
+        desaturate = true,
+        alpha = {
+          found = {
+            frame = 1,
+            icon = 1,
+          },
+          not_found = {
+            frame = 0.0,
+            icon = 0.6,          
+          },
+        },
+      },
+    [2] = {
+        spec = nil,
+        spellid = 118271, -- 活体炸弹
+        size = 30,
+        pos = { a1 = "BOTTOM", a2 = "BOTTOM", af = "UIParent", x = 105, y = 320 },
+        unit = "target",
+        ismine = true,
+        desaturate = true,
+        alpha = {
+          found = {
+            frame = 1,
+            icon = 1,
+          },
+          not_found = {
+            frame = 0.0,
+            icon = 0.6,          
+          },
+        },
+      },
+	}
   end
   
   -----------------------------
@@ -1941,8 +1984,8 @@ end
   SlashCmdList["rfilter"] = SlashCmd;
   SLASH_rfilter1 = "/rfilter";
   SLASH_rfilter2 = "/rf";  
-  --print("|c0033AAFFrFilter3 loaded.|r")
-  --print("|c0033AAFF\/rfilter|r or |c0033AAFF\/rf|r to display the command list")
+--  print("|c0033AAFFrFilter3 loaded.|r")
+--  print("|c0033AAFF\/rfilter|r or |c0033AAFF\/rf|r to display the command list")
   
   local createIcon = function(f,index,type)
 
