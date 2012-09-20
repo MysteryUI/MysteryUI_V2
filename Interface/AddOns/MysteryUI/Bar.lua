@@ -28,7 +28,7 @@ local BagButtonFrameList = {
 	CharacterBag3Slot,
 	KeyRingButton,
 }
-
+			
 local ButtonGridIsShown = false
 local Empty_Art = "Interface\\Addons\\MysteryUI\\MyMedia\\Empty"
 local MouseInSidebar, MouseInCorner = false
@@ -122,7 +122,7 @@ local function RefreshMainActionBars()
 	if StanceBarFrame:IsShown() then
 		--print("StanceBarFrame")
 		StanceButton1:ClearAllPoints();
-		StanceButton1:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, anchorOffset);
+		StanceButton1:SetPoint("BOTTOMLEFT", anchor, "TOPLEFT", 0, anchorOffset+4);
 		anchor = StanceButton1
 		--anchorOffset = 4
 		anchorOffset = 4

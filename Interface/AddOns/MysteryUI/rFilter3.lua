@@ -22,7 +22,7 @@
   if player_class == "DEATHKNIGHT" then
   -- Buffs
   cfg.rf3_BuffList = {
-      [1] = {
+ --[[     [1] = {
         spec = nil,
         spellid = 64856, -- Blade Barrier
         size = 28,
@@ -40,7 +40,7 @@
             icon = 0.6,          
           },
         },
-      },
+      },]]
       [2] = {
         spec = nil,
         spellid = 57330, -- HoW
@@ -2245,7 +2245,7 @@ end
         else
           f.iconframe:SetAlpha(f.alpha.no_cooldown.frame)
           f.iconframe.icon:SetAlpha(f.alpha.no_cooldown.icon)
-          f.iconframe.time:SetText("RDY")
+          f.iconframe.time:SetText("Biu")
           f.iconframe.count:SetText("")
           f.iconframe.time:SetTextColor(0, 0.8, 0)
           f.iconframe.border:SetVertexColor(0.4,0.6,0.2,1)
