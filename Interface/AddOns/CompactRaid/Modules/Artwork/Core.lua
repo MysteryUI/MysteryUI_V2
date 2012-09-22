@@ -6,6 +6,7 @@
 ------------------------------------------------------------
 
 local GetAddOnMetadata = GetAddOnMetadata
+local _
 
 local L = CompactRaid:GetLocale("Artwork")
 if type(CompactRaid.CheckVersion) ~= "function" or not CompactRaid:CheckVersion("3.0", L["title"]) then return end

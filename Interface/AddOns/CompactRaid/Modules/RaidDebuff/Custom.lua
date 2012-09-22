@@ -13,6 +13,7 @@ local strtrim = strtrim
 local tonumber = tonumber
 local GetSpellInfo = GetSpellInfo
 local GameTooltip = GameTooltip
+local _
 
 local L = CompactRaid:GetLocale("RaidDebuff")
 local module = CompactRaid:FindModule("RaidDebuff")

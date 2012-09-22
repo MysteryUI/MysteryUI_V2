@@ -7,6 +7,7 @@
 
 local wipe = wipe
 local UnitDebuff = UnitDebuff
+local _
 
 local L = CompactRaid:GetLocale("RaidDebuff")
 local module = CompactRaid:CreateModule("RaidDebuff", L["raid debuff"], "3.0", L["raid debuff desc"], "account")

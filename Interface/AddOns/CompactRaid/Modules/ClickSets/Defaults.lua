@@ -9,6 +9,7 @@ local module = CompactRaid:FindModule("ClickSets")
 if not module then return end
 
 local CLASS = select(2, UnitClass("player"))
+local _
 
 module.DEFAULT_SPELLS = {
 	PRIEST = {
@@ -45,6 +46,7 @@ module.DEFAULT_SPELLS = {
 		18562, -- Swiftmend
 		50769, -- Revive
 		2782, -- Remove Corruption
+		88423, -- Nature's Curse
 		20484, -- Rebirth
 		29166, -- Innervate
 		467, -- Thorns
@@ -131,8 +133,8 @@ local CLASS_DEFAULTS = {
 		["alt-ctrl-2"]	= 48438, -- Wild Growth
 		["alt-2"]	= 18562, -- Swiftmend
 		["ctrl-2"]	= 33763, -- Lifebloom
-		["shift-2"]	= 2782, -- Remove Corruption
-		["alt-ctrl-1"]	= "emergent",
+		["shift-2"]	= 88423, -- Nature's Curse
+		--["alt-ctrl-1"]	= "emergent",
 	},
 
 	SHAMAN = {
@@ -195,7 +197,7 @@ local function MakeEmergentMacro(spell1, spell2)
 end
 
 local EMERGENT_MACROS = {
-	DRUID = MakeEmergentMacro(17116, 5185),
+	--DRUID = MakeEmergentMacro(17116, 5185),
 	SHAMAN = MakeEmergentMacro(16188, 77472),
 }
 

@@ -12,6 +12,7 @@ local ipairs = ipairs
 local strtrim = strtrim
 local CloseDropDownMenus = CloseDropDownMenus
 local _G = _G
+local _
 
 local L = CompactRaid:GetLocale("ClickSets")
 local module = CompactRaid:FindModule("ClickSets")

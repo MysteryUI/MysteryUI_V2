@@ -24,6 +24,7 @@ local GetNumGroupMembers = GetNumGroupMembers
 local IsInRaid = IsInRaid
 local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsRaidOfficer = UnitIsRaidOfficer
+local _
 
 local addonName, addon = ...
 _G["CompactRaid"] = addon

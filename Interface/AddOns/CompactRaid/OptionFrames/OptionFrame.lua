@@ -7,6 +7,7 @@
 
 local _G = _G
 local type = type
+local _
 
 local addonName, addon = ...
 local L = addon.L
@@ -437,16 +438,16 @@ local function InitOptionData(db, chardb)
 	if not db.v30 then
 		db.v30 = 1
 		db.lock =1
-		db.showSolo = 0
-		db.showParty = 0
+		db.showSolo = 1
+		db.showParty = 1
 		db.keepgroupstogether = 1
 		db.raidFilter = "CLASS"
-		chardb.showPartyPets = 0
+		chardb.showPartyPets = 1
 	end
 
 	-- Initialize addon data
 	LoadOption("scale", 100, 25, 300)
-	LoadOption("width", 70, 24, 120)
+	LoadOption("width", 64, 24, 120)
 	LoadOption("height", 40, 24, 120)
 	LoadOption("spacing", 2, 0, 10)
 	LoadOption("outrangeAlpha", 60, 0, 100)
@@ -457,12 +458,12 @@ local function InitOptionData(db, chardb)
 	LoadOption("hideToolboxes", 1)
 
 	LoadOption("hidebarbkgnd", 1)
-	LoadOption("showSolo", 0)
-	LoadOption("showParty", 0)
+	LoadOption("showSolo")
+	LoadOption("showParty")
 	LoadOption("showPartyPets", nil, nil, nil, 1)
 	LoadOption("showRaidPets", nil, nil, nil, 1)
 
-	LoadOption("powerBarHeight", 4, 0, 10)
+	LoadOption("powerBarHeight", 3, 0, 10)
 
 	LoadOption("clickDownMode")
 	LoadOption("showtooltip", 1, 0, 2)

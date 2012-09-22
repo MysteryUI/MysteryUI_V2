@@ -17,10 +17,13 @@ local CloseDropDownMenus = CloseDropDownMenus
 local UIDropDownMenu_AddButton = UIDropDownMenu_AddButton
 local ToggleDropDownMenu = ToggleDropDownMenu
 local ColorPickerFrame = ColorPickerFrame
+local _
 
 local L = CompactRaid:GetLocale("CornerIndicators")
 local module = CompactRaid:FindModule("CornerIndicators")
 if not module then return end
+
+local auraGroups = _G["LibBuffGroups-1.0"]
 
 module.optionData = {}
 local activeOptionKey, activeOptionDB
@@ -197,7 +200,7 @@ similarButton:SetPoint("LEFT", auraEdit, "RIGHT", 4, 0)
 
 function page:UpdateSimilarPrompt()
 	local aura = activeOptionDB.aura
-	local list = module:GetGroupBuffs(module:GetBuffGroup(aura))
+	local list = auraGroups:GetGroupAuras(auraGroups:GetAuraGroup(aura))
 	if list then
 		activeOptionDB.checkSimilar = 1
 		similarButton.tooltipTitle = aura
@@ -207,14 +210,14 @@ function page:UpdateSimilarPrompt()
 			if similar ~= aura then
 				count = count + 1
 				if text then
-					text = text..", "..similar
+					text = text.."\n"..similar
 				else
 					text = similar
 				end
 			end
 		end
 
-		similarButton.tooltipText = L["similars/conflicts"].."|cffffffff"..(text or "").."|r"
+		similarButton.tooltipText = "\n"..L["similars/conflicts"].."\n|cffffffff"..(text or "").."|r"
 		similarButton.icon:SetDesaturated(false)
 		similarButton.count:SetText(count)
 	else
@@ -391,16 +394,16 @@ function module:InitOptionData()
 	end
 
 	local key
-	for _, key in ipairs(module.INDICATOR_KEYS) do
-		module.optionData[key] = self:DecodeData(db[key])
+	for _, key in ipairs(self.INDICATOR_KEYS) do
+		self.optionData[key] = self:DecodeData(db[key])
 	end
 
 	tabFrame:DeselectTab()
 	tabFrame:SelectTab(1)
 
 	local indicator
-	for _, indicator in ipairs(module.indicators) do
-		indicator.db = module.optionData[indicator.key]
+	for _, indicator in ipairs(self.indicators) do
+		indicator.db = self.optionData[indicator.key]
 	end
 end
 

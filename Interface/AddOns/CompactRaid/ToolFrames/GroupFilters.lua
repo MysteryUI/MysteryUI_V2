@@ -12,6 +12,8 @@ local format = format
 local _, addon = ...
 local L = addon.L
 
+if not addon.GetRaidGroup then return end
+
 local frame = addon:CreateToolbox("CompactRaidToolboxGroupFilter", 1, 1, 1)
 frame:Hide()
 

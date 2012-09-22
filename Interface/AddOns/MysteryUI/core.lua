@@ -1,4 +1,7 @@
 ﻿--MysteryUI核心设置
+
+local _G = _G  --解决头像在换类似天赋，符文的时候出现暴雪禁用插件的情况。
+
 --[[ 选项 ]]
 local SellGreyCrap = true           -- 是否自动出售灰色物品.
 local HideHotKeys = true            -- 是否隐藏快捷键和宏在技能栏里的文本

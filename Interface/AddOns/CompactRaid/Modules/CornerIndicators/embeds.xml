@@ -6,5 +6,4 @@
 	<Script file="Visual.lua"/>
 	<Script file="Defaults.lua"/>
 	<Script file="OptionFrame.lua"/>
-	<Script file="BuffGroups.lua"/>
 </Ui>

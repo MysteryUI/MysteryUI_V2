@@ -5,6 +5,14 @@
 -- 2010/10/30
 ------------------------------------------------------------
 
+local type = type
+local pairs = pairs
+local wipe = wipe
+local strfind = strfind
+local tonumber = tonumber
+local GetSpellInfo = GetSpellInfo
+local _
+
 local module = CompactRaid:FindModule("CornerIndicators")
 if not module then return end
 
@@ -12,7 +20,6 @@ module.DEFAULT_SPELLS = {
 	PRIEST = {
 		139, -- Renew
 		17, -- Power Word: Shield
-		55680, -- Glyph of Prayer of Healing
 		33076, -- Prayer of Mending
 		21562,-- Power Word: Fortitude
 		6346, -- Fear Ward
@@ -43,13 +50,12 @@ module.DEFAULT_SPELLS = {
 	},
 
 	WARRIOR = {
-		50720, -- Vigilance
+		114030, -- Vigilance
 		6673, -- Battle Shout
 		469, -- Commanding Shout
 	},
 
 	MAGE = {
-		54646, -- Focus Magic
 		1459, -- Arcane Brilliance
 	},
 

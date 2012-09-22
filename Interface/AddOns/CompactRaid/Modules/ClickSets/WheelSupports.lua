@@ -7,6 +7,7 @@
 
 local ipairs = ipairs
 local SecureHandlerExecute = SecureHandlerExecute
+local _
 
 local module = CompactRaid:FindModule("ClickSets")
 if not module then return end

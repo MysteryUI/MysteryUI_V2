@@ -16,6 +16,7 @@ local strtrim = strtrim
 local strlen = strlen
 local _G = _G
 local ATTRIBUTE_NOOP = ATTRIBUTE_NOOP
+local _
 
 local L = CompactRaid:GetLocale("ClickSets")
 if type(CompactRaid.CheckVersion) ~= "function" or not CompactRaid:CheckVersion(2.0, L["title"]) then return end

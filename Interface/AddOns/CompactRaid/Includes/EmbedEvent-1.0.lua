@@ -28,9 +28,10 @@
 local type = type
 local CreateFrame = CreateFrame
 local tinsert = tinsert
+local _
 
 local MAJOR_VERSION = 1
-local MINOR_VERSION = 2
+local MINOR_VERSION = 3
 local LIB_NAME = "EmbedEvent-1.0"
 
 -- To prevent older libraries from over-riding newer ones...

@@ -81,9 +81,10 @@ local InterfaceOptions_AddCategory = InterfaceOptions_AddCategory
 local InterfaceOptionsFrame_OpenToCategory = InterfaceOptionsFrame_OpenToCategory
 local _G = _G
 local UISpecialFrames = UISpecialFrames
+local _
 
 local MAJOR_VERSION = 1
-local MINOR_VERSION = 41
+local MINOR_VERSION = 42
 
 -- To prevent older libraries from over-riding newer ones...
 if type(UICreateInterfaceOptionPage_IsNewerVersion) == "function" and not UICreateInterfaceOptionPage_IsNewerVersion(MAJOR_VERSION, MINOR_VERSION) then return end

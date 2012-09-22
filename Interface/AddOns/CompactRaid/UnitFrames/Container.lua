@@ -19,7 +19,7 @@ addon.defaultBorder = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border"
 
 local frame = CreateFrame("Frame", "CompactRaidMainFrame", UIParent, "SecureFrameTemplate")
 frame:SetSize(16, 16)
-frame:SetPoint("LEFT", 10,150)--("CENTER")
+frame:SetPoint("LEFT", 5,150)--("CENTER")
 frame:SetFrameStrata("LOW")
 frame:SetMovable(true)
 frame:SetUserPlaced(true)
@@ -136,15 +136,24 @@ container:SetScript("OnUpdate", function(self, elapsed)
 	needCalcSize = nil
 
 	local group = addon:GetGroupStats()
+	local method
 
 	local cols, rows
 	if group == "raid" then
-		cols, rows = addon:GetRaidFramesMatrix()
+		method = "GetRaidFramesMatrix"
 	elseif group == "party" then
-		cols, rows = addon:GetPartyFramesMatrix()
+		method = "GetPartyFramesMatrix"
 	else
-		cols, rows = addon:GetSoloFramesMatrix()
+		method = "GetSoloFramesMatrix"
 	end
+
+	local func = addon[method]
+	if type(func) == "function" then
+		cols, rows = func(addon)
+	else
+		cols, rows = 1, 1
+	end
+
 
 	if cols < 1 then
 		cols = 1

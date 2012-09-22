@@ -9,6 +9,7 @@ local hooksecurefunc = hooksecurefunc
 local ipairs = ipairs
 local sort = sort
 local GetAddOnMetadata = GetAddOnMetadata
+local _
 
 local L = CompactRaid:GetLocale("Artwork")
 local module = CompactRaid:FindModule("Artwork")

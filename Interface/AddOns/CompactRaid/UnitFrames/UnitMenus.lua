@@ -43,8 +43,8 @@ local strmatch = strmatch
 local GetItemQualityColor = GetItemQualityColor
 local GetPVPDesired = GetPVPDesired
 local SetPVP = SetPVP
-local GetDungeonDifficulty = GetDungeonDifficulty
-local SetDungeonDifficulty= SetDungeonDifficulty
+local GetDungeonDifficultyID = GetDungeonDifficultyID
+local SetDungeonDifficultyID= SetDungeonDifficultyID
 local GetRaidDifficulty = GetRaidDifficulty
 local SetRaidDifficulty = SetRaidDifficulty
 
@@ -286,10 +286,11 @@ local function Frame_OnMenuRequestLevel2(value)
 
 	elseif value == "DUNGEON_DIFFICULTY" then
 
-		local difficulty = GetDungeonDifficulty()
+		local difficulty = GetDungeonDifficultyID()
 		local i
-		for i = 1, 2 do
-			AddLine("DUNGEON_DIFFICULTY"..i, 2, "func", SetDungeonDifficulty, "arg1", i, "checked", difficulty == i, "disabled", curGroup and curLeadship ~= "leader")
+		for i = 1, 3 do
+			local res = (i == 3 and 8 or i)
+			AddLine("DUNGEON_DIFFICULTY"..i, 2, "func", SetDungeonDifficultyID, "arg1", res, "checked", difficulty == res, "disabled", curGroup and curLeadship ~= "leader")
 		end
 
 	elseif value == "RAID_DIFFICULTY" then

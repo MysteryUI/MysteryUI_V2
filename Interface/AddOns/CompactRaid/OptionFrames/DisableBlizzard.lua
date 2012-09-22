@@ -8,6 +8,7 @@
 local _G = _G
 local RegisterStateDriver = RegisterStateDriver
 local SetCVar = SetCVar
+local MAX_PARTY_MEMBERS = MAX_PARTY_MEMBERS
 
 local _, addon = ...
 local L = addon.L
@@ -50,32 +51,33 @@ local button = CreateFrame("Button", "CompactRaidOverrideButton", CompactUnitFra
 button:SetSize(120, 24)
 button:SetPoint("TOP", prompt, "BOTTOM", 0, -16)
 button:SetText(SETTINGS)
-
-button:RegisterEvent("VARIABLES_LOADED")
-button:SetScript("OnEvent", function(self)
-	self:UnregisterAllEvents()
-	SetCVar("useCompactPartyFrames", "0")
-end)
-
 button:SetScript("OnClick", function(self)
 	addon.optionFrame:Show()
 end)
 
---[[
+local blizzPartyParent = CreateFrame("Frame", nil, UIParent, "SecureFrameTemplate")
+blizzPartyParent:RegisterEvent("VARIABLES_LOADED")
+blizzPartyParent:SetScript("OnEvent", function(self)
+	SetCVar("useCompactPartyFrames", "0")
+end)
+
+local i
+for i = 1, MAX_PARTY_MEMBERS do
+	local frame = _G["PartyMemberFrame"..i]
+	if frame then
+		frame:SetParent(blizzPartyParent)
+		--RegisterStateDriver(frame, "visibility", "show") -- just for debug
+	end
+end
+
+if PartyMemberBackground then
+	PartyMemberBackground:SetParent(blizzPartyParent)
+end
+
 addon:RegisterOptionCallback("showParty", function(value)
-	local i
-	for i = 1, 4 do
-		local frame = _G["PartyMemberFrame"..i]
-		if value then
-			RegisterStateDriver(frame, "visibility", "hide")
-			frame:SetAlpha(0)
-			frame:SetScale(0.01)
-		else
-			local frame = _G["PartyMemberFrame"..i]
-			RegisterStateDriver(frame, "visibility", "[nogroup] hide; [group:raid] hide; [@party"..i..",exists] show; hide")
-			frame:SetAlpha(1)
-			frame:SetScale(1)
-		end
+	if value then
+		blizzPartyParent:Show()--Hide()
+	else
+		blizzPartyParent:Show()
 	end
 end)
---]]

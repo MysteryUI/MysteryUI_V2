@@ -7,8 +7,7 @@
 
 local ipairs = ipairs
 local type = type
-local UnitBuff = UnitBuff
-local UnitDebuff = UnitDebuff
+local _
 
 local L = CompactRaid:GetLocale("CornerIndicators")
 

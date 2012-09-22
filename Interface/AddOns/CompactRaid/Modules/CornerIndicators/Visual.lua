@@ -12,27 +12,31 @@ local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 local type = type
 local pairs = pairs
 local CreateFrame = CreateFrame
-local hooksecurefunc = hooksecurefunc
 local strfind = strfind
 local tinsert = tinsert
+local UnitBuff = UnitBuff
+local UnitDebuff = UnitDebuff
+local _
 
 local module = CompactRaid:FindModule("CornerIndicators")
 if not module then return end
 
 module.indicators = {}
 
-local function FindAura(unit, aura, selfcast, lacks, similar)
-	local filter = selfcast and "PLAYER" or nil
-	local harmful
-	local name, _, icon, count, _, duration, expires = UnitBuff(unit, aura, nil, filter)
-	if not name then
-		harmful = 1
-		name, _, icon, count, _, duration, expires = UnitDebuff(unit, aura, nil, filter)
-	end
+local auraGroups = _G["LibBuffGroups-1.0"]
 
-	-- Aura not found, try checking for similar auras from others
-	if not name and similar then
-		name, icon, count, duration, expires, harmful = module:FindSimilarBuff(unit, aura)
+local function FindAura(unit, aura, selfcast, lacks, similar)
+	local filter = selfcast and "PLAYER" or ""
+	local name, icon, count, dispelType, duration, expires, caster, harmful
+
+	if similar then
+		name, icon, count, dispelType, duration, expires, caster, harmful = auraGroups:UnitAura(unit, aura)
+	else
+		name, _, icon, count, _, duration, expires = UnitBuff(unit, aura, nil, filter)
+		if not name then
+			harmful = 1
+			name, _, icon, count, _, duration, expires = UnitDebuff(unit, aura, nil, filter)
+		end
 	end
 
 	if lacks then
@@ -44,6 +48,7 @@ local function FindAura(unit, aura, selfcast, lacks, similar)
 			return name, icon, count or 1, duration or 0, expires or 0, harmful
 		end
 	end
+
 end
 
 local function Indicator_UpdateStatus(self)

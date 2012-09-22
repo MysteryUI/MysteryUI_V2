@@ -47,13 +47,26 @@
 
 -----------------------------------------------------------
 
+local type = type
+local CreateFrame = CreateFrame
+local tinsert = tinsert
+local tremove = tremove
+local min = min
+local max = max
+local floor = floor
+local ipairs = ipairs
+local wipe = wipe
+local error = error
+local format = format
+local hooksecurefunc = hooksecurefunc
+local NIL = "!2BFF-1B787839!"
+local _
+
 local MAJOR_VERSION = 1
-local MINOR_VERSION = 10
+local MINOR_VERSION = 20
 
 -- To prevent older libraries from over-riding newer ones...
 if type(UICreateVirtualScrollList_IsNewerVersion) == "function" and not UICreateVirtualScrollList_IsNewerVersion(MAJOR_VERSION, MINOR_VERSION) then return end
-
-local NIL = "!2BFF-1B787839!"
 
 local function EncodeData(data)
 	return (data == nil) and NIL or data -- Must be nil, not false

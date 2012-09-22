@@ -31,6 +31,7 @@ local EJ_GetInstanceByIndex = EJ_GetInstanceByIndex
 local EJ_GetNumTiers = EJ_GetNumTiers
 local EJ_GetTierInfo = EJ_GetTierInfo
 local EJ_GetCurrentTier = EJ_GetCurrentTier
+local _
 
 local L = CompactRaid:GetLocale("RaidDebuff")
 local module = CompactRaid:FindModule("RaidDebuff")
@@ -77,6 +78,8 @@ function module:RegisterDebuff(tierId, instanceId, bossId, spellId, level, custo
 		if custom and self.db then
 			self.db.customDebuffs[format("%d,%d,%d", tierId, instanceId, spellId)] = format("%d,%d", debuff.bossId, debuff.level)
 		end
+
+		return debuff
 	else
 		tinsert(pendingList, { tierId = tierId, instanceId = instanceId, bossId = bossId, spellId = spellId, level = level, custom = custom })
 	end

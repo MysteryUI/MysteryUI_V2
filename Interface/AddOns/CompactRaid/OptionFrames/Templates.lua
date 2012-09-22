@@ -787,7 +787,7 @@ function templates:CreateDisabledPage(parent)
 
 	local texture = page:CreateTexture(nil, "BORDER")
 	texture:SetPoint("TOPLEFT", 0, -150)
-	texture:SetPoint("TOPRIGHT", 0, -15)
+	texture:SetPoint("TOPRIGHT", 0, -150)
 	texture:SetHeight(96)
 	texture:SetTexture(0.25, 0.25, 0.25, 0.75)
 

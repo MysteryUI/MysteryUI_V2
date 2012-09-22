@@ -37,9 +37,10 @@ local tinsert = tinsert
 local CreateFrame = CreateFrame
 local GameTooltip = GameTooltip
 local _G = _G
+local _
 
 local MAJOR_VERSION = 1
-local MINOR_VERSION = 4
+local MINOR_VERSION = 5
 
 -- To prevent older libraries from over-riding newer ones...
 if type(UICreateTabFrame_IsNewerVersion) == "function" and not UICreateTabFrame_IsNewerVersion(MAJOR_VERSION, MINOR_VERSION) then return end
