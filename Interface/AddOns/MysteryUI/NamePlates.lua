@@ -169,12 +169,7 @@
   end
   
   --更新施法条定位
-  local updateCastbarPosition = function(castBar)
-    
-    --local point, relativeTo, relativePoint, xOfs, yOfs = castBar:GetPoint(n)
-    --xOfs = floor(xOfs+0.5)
-    --yOfs = floor(yOfs+0.5)
-    
+  local updateCastbarPosition = function(castBar)    
     castBar.border:ClearAllPoints()
     castBar.border:SetPoint("CENTER",castBar:GetParent(),"CENTER",-19,-29)
 

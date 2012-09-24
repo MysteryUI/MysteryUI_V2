@@ -11,7 +11,6 @@
 	<Script file='Minimap.lua' />
 	<Script file='Cooltimer.lua' />
 	<Script file='color.lua' />
-	<Script file='ButtonBorder.lua' />
 	<Script file='Classcolors.lua' />
 	<Script file='Chat.lua' />
 	<Script file='NamePlates.lua' />
