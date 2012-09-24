@@ -115,10 +115,6 @@
 		select(6, GameTimeFrame:GetRegions()),
 		
 		-- 动作条
---~ 		ReputationWatchBarTexture0,
---~ 		ReputationWatchBarTexture1,
---~ 		ReputationWatchBarTexture2,
---~ 		ReputationWatchBarTexture3,
 		ReputationXPBarTexture0,
 		ReputationXPBarTexture1,
 		ReputationXPBarTexture2,
@@ -132,13 +128,6 @@
 		MainMenuXPBarTextureLeftCap,
 		ActionBarUpButton:GetRegions(),
 		ActionBarDownButton:GetRegions(),
-		--BonusActionBarFrame:GetRegions(),
-		--KeyRingButton:GetRegions(),	
-		--select(2, BonusActionBarFrame:GetRegions()),
-        
---~         MainMenuMaxLevelBar1,
---~         MainMenuMaxLevelBar2,
---~         MainMenuMaxLevelBar3,
         
         --声望条
         ReputationWatchBarTexture0,
@@ -177,24 +166,6 @@
 		ChatFrame2ButtonFrameDownButton:GetRegions(),
 		select(2, ChatFrame2ButtonFrameBottomButton:GetRegions()),
 		
-		-- 聊天编辑框
---~ 		select(6, ChatFrame1EditBox:GetRegions()),
---~ 		select(7, ChatFrame1EditBox:GetRegions()),
---~ 		select(8, ChatFrame1EditBox:GetRegions()),
---~ 		select(5, ChatFrame1EditBox:GetRegions()),
-		
---~ 		-- Micro menu buttons
---~ 		select(2, SpellbookMicroButton:GetRegions()),
---~ 		select(3, CharacterMicroButton:GetRegions()),
---~ 		select(2, TalentMicroButton:GetRegions()),
---~ 		select(2, AchievementMicroButton:GetRegions()),
---~ 		select(2, QuestLogMicroButton:GetRegions()),
---~ 		select(2, GuildMicroButton:GetRegions()),
---~ 		select(3, PVPMicroButton:GetRegions()),
---~ 		select(2, LFDMicroButton:GetRegions()),
---~ 		select(4, MainMenuMicroButton:GetRegions()),
---~ 		select(2, HelpMicroButton:GetRegions()),
-		
 		-- 其他
 		select(2,CastingBarFrame:GetRegions()),
 		select(2,MirrorTimer1:GetRegions()),
@@ -204,7 +175,7 @@
         
 	}
 	
---	照亮累颜色
+--	照亮类颜色
 	-------------------------
 	if class then
 		local classcolor = RAID_CLASS_COLORS[select(2, UnitClass("player"))]
