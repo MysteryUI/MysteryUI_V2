@@ -7,7 +7,7 @@ local _, class = UnitClass("player")
 ---------------------------------------------------
 UnitFrames = {}
 UnitFrames.config = {
-    SetPoint = true,                -- true or false 是否使用脚本重新定义的各个框体位置
+    SetPoint = false,                -- true or false 是否使用脚本重新定义的各个框体位置
     classTarget = false,            -- true or false 是否其他单位显示职业图标
     classColorPlayer = true,        -- true or false 是否渲染玩家职业框体颜色
     classColorTarget = true,        -- true or false 是否渲染目标职业框体颜色
@@ -35,19 +35,33 @@ UnitFrames.config.phrases = {
 
 if UnitFrames.config.SetPoint then
 --[[ 设置位置 ]]
-TargetFrame:ClearAllPoints() TargetFrame:SetPoint("center", 200, -165) 
-TargetFrameToT:ClearAllPoints() TargetFrameToT:SetPoint("LEFT",TargetFrame,"Top", -15, -1)
-TargetFrameToTTextureFrameName:ClearAllPoints() TargetFrameToTTextureFrameName:SetPoint("LEFT",TargetFrameToT,"Top", -1, -8)
-FocusFrame:SetPoint("topleft", 250, -140)
-FocusFrameToT:SetPoint("bottomright", -35, -13)
-PartyMemberFrame1:ClearAllPoints() PartyMemberFrame1:SetPoint("topleft", 150, -240)
-Boss1TargetFrame:ClearAllPoints() Boss1TargetFrame:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-140,-430) Boss1TargetFrame.SetPoint=function()end
-TargetFrameSpellBar:ClearAllPoints() TargetFrameSpellBar:SetPoint("CENTER", UIParent, "CENTER", 0, -80) TargetFrameSpellBar.SetPoint=function()end
+TargetFrame:ClearAllPoints() 
+TargetFrame:SetPoint("center", 200, -165) --目标框体位置
+
+TargetFrameToT:ClearAllPoints()
+TargetFrameToT:SetPoint("LEFT",TargetFrame,"Top", -15, -1)  --目标的目标的框体位置
+
+TargetFrameToTTextureFrameName:ClearAllPoints() 
+TargetFrameToTTextureFrameName:SetPoint("LEFT",TargetFrameToT,"Top", -1, -8)  --目标的目标的名字位置
+
+FocusFrame:SetPoint("topleft", 250, -140) --焦点的框体位置
+FocusFrameToT:SetPoint("bottomright", -35, -13)  --焦点目标的框体位置
+
+PartyMemberFrame1:ClearAllPoints() 
+PartyMemberFrame1:SetPoint("topleft", 150, -240)  --队伍的框体位置
+
+Boss1TargetFrame:ClearAllPoints() 
+Boss1TargetFrame:SetPoint("TOPRIGHT",UIParent,"TOPRIGHT",-140,-430) --BOSS框体的位置
+Boss1TargetFrame.SetPoint=function()end
+
+TargetFrameSpellBar:ClearAllPoints()
+TargetFrameSpellBar:SetPoint("CENTER", UIParent, "CENTER", 0, -80) ---目标施法条的位置
+TargetFrameSpellBar.SetPoint=function()end
 
 --[[ 框体固定 ]]
 local function ScrewYouPlayerFrame()
 	PlayerFrame:ClearAllPoints()
-	PlayerFrame:SetPoint("center", -200, -165)
+	PlayerFrame:SetPoint("center", -200, -165) --玩家框体的位置
  end
 
 hooksecurefunc("PlayerFrame_AnimateOut", function() PlayerFrame:SetAlpha(0); ScrewYouPlayerFrame() end)
@@ -80,7 +94,7 @@ _G[cbf.."Flash"]:SetTexture(cbfs)
 _G[cbf]:SetScale("1.2")
 _G[cbf.."Text"]:SetPoint("TOP", _G[cbf], 0, 4)
 _G[cbf]:ClearAllPoints()
-_G[cbf]:SetPoint("TOP", WorldFrame, "BOTTOM", 0, 130) --0, 100
+_G[cbf]:SetPoint("TOP", WorldFrame, "BOTTOM", 0, 130) --自己施法条的位置
 _G[cbf].SetPoint = function() end
 _G[cbf.."Icon"]:Show()
 _G[cbf.."Icon"]:SetHeight(20)
@@ -125,7 +139,7 @@ hooksecurefunc(FocusFrameSpellBar, "Show", function()
     FocusFrameSpellBar:SetScale("1.1")
 	FocusFrameSpellBar:ClearAllPoints()
 	if UnitFrames.config.SetPoint then
-	FocusFrameSpellBar:SetPoint("CENTER", UIParent, "CENTER", 0, 200)
+	FocusFrameSpellBar:SetPoint("CENTER", UIParent, "CENTER", 0, 200)  --焦点施法条的位置
 	FocusFrameSpellBar.SetPoint = function() end
 	end
 end)
@@ -133,7 +147,9 @@ FocusFrameSpellBar:SetStatusBarColor(0,0.45,0.9); FocusFrameSpellBar.SetStatusBa
 
 if UnitFrames.config.SetPoint then
 --[[ 符文 ]]
-RuneFrame:ClearAllPoints() RuneFrame:SetPoint("CENTER",UIParent,"CENTER",0,-170) RuneFrame.SetPoint = function() end
+RuneFrame:ClearAllPoints() 
+RuneFrame:SetPoint("CENTER",UIParent,"CENTER",0,-170) --符文的框体位置
+RuneFrame.SetPoint = function() end
 for i=1,6 do _G["RuneButtonIndividual"..i]:SetScale("1.1") end
 for i=1,6 do _G["RuneButtonIndividual"..i]:ClearAllPoints() end
 RuneButtonIndividual3:SetPoint("CENTER",-12,0)
@@ -328,8 +344,6 @@ function targetUpdateAuraPositions(self, auraName, numAuras, numOppositeAuras, l
     local AURA_OFFSET_Y = 3;
     local LARGE_AURA_SIZE = config.largeAuraSize;
     local SMALL_AURA_SIZE = config.smallAuraSize;
---  local AURA_ROW_WIDTH = 122;
---  local NUM_TOT_AURA_ROWS = 3;
     local size;
     local offsetY = AURA_OFFSET_Y;
     local rowWidth = 0;
@@ -353,9 +367,6 @@ function targetUpdateAuraPositions(self, auraName, numAuras, numOppositeAuras, l
             self.auraRows = self.auraRows + 1;
             firstBuffOnRow = i;
             offsetY = AURA_OFFSET_Y;
---          if ( self.auraRows > NUM_TOT_AURA_ROWS ) then
---              maxRowWidth = AURA_ROW_WIDTH;
---          end
         else
             updateFunc(self, auraName, i, numOppositeAuras, i - 1, size, offsetX, offsetY);
         end
