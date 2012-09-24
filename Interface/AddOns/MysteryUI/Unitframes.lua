@@ -7,7 +7,7 @@ local _, class = UnitClass("player")
 ---------------------------------------------------
 UnitFrames = {}
 UnitFrames.config = {
-    SetPoint = false,                -- true or false 是否使用脚本重新定义的各个框体位置
+    SetPoint = true,                -- true or false 是否使用脚本重新定义的各个框体位置
     classTarget = false,            -- true or false 是否其他单位显示职业图标
     classColorPlayer = true,        -- true or false 是否渲染玩家职业框体颜色
     classColorTarget = true,        -- true or false 是否渲染目标职业框体颜色
