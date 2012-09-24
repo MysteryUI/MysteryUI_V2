@@ -19,7 +19,7 @@ addon.defaultBorder = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border"
 
 local frame = CreateFrame("Frame", "CompactRaidMainFrame", UIParent, "SecureFrameTemplate")
 frame:SetSize(16, 16)
-frame:SetPoint("LEFT", 5,150)--("CENTER")
+frame:SetPoint("TOPLEFT", 10,-100)--("CENTER")
 frame:SetFrameStrata("LOW")
 frame:SetMovable(true)
 frame:SetUserPlaced(true)

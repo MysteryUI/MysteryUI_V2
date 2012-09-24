@@ -17,6 +17,7 @@
 	<Script file='Tooltip.lua' />
 	<Script file='combattext.lua' />
 	<Script file='Mapcoords.lua' />
+	<Script file='dbm.lua' />
 	<Script file='rFilter3.lua' />
 	<Script file='Guildtab.lua' />
 	<Script file='Raidfader.lua' />

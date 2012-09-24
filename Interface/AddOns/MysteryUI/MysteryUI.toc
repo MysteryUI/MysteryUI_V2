@@ -6,6 +6,7 @@
 ## Version: V5
 ## RequiredDeps: Blizzard_CombatText
 ## OptionalDeps: DBM-Core
+## SavedVariablesPerCharacter: UISetup, UISavedPositions, setupUI
 ## X-WoWBox-Ver: 1
 ## X-WoWBox-ID: 3340
 
