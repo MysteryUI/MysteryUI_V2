@@ -1,26 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file ="Frame\Frame.xml"/>
+	<Include file ="Function\Function.xml"/>
 	<Include file='rBuffFrameStyler\elements.xml' />
 	<Include file='rActionButtonStyler\elements.xml' />
 	<Include file='JPack\JPack.xml' />
 	<Include file ="oGlow\load.xml"/>
 	<Include file ="ChatEmote\ChatEmote.xml"/>
 	
-	<Script file='core.lua' />
-	<Script file='Bar.lua' />
-	<Script file='Unitframes.lua' />
-	<Script file='Minimap.lua' />
-	<Script file='Cooltimer.lua' />
-	<Script file='color.lua' />
-	<Script file='Classcolors.lua' />
-	<Script file='Chat.lua' />
-	<Script file='NamePlates.lua' />
-	<Script file='Tooltip.lua' />
-	<Script file='combattext.lua' />
-	<Script file='Mapcoords.lua' />
-	<Script file='dbm.lua' />
-	<Script file='rFilter3.lua' />
-	<Script file='Guildtab.lua' />
-	<Script file='Raidfader.lua' />
-	<Script file='durability.lua' />
-	<Script file='Hotkey.lua' />
+	<Script file='MysteryUI.lua' />
 </Ui>

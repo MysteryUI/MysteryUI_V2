@@ -15,7 +15,7 @@ UnitFrames.config = {
     classColorParty = true,         -- true or false 是否渲染队伍职业框体颜色
     repositionPartyText = false,    -- true or false 是否重新定位队伍文本
     largeAuraSize = 24,             -- Blizzard default value is 21
-    smallAuraSize = 20,             -- Blizzard default value is 17
+    smallAuraSize = 18,             -- Blizzard default value is 17
     customStatusText = true,        -- true or false (是否自定义状态文本)
     autoManaPercent = true,         -- true or false (是否用百分比显示法力值)
     thousandSeparators = true,      -- true or false  是否在1000...1000.000...1000.000.000的.上添加空位隔符
@@ -188,7 +188,7 @@ end
 ---------------------------------------------------
 if class == "PRIEST" then
     UnitFrames.config.largeAuraSize = 24
-    UnitFrames.config.smallAuraSize = 20
+    UnitFrames.config.smallAuraSize = 18
     UnitFrames.config.autoManaPercent = false
 end
 if class == "DRUID" then

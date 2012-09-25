@@ -59,7 +59,7 @@ local SetupUI = function()
 	SetCVar("consolidateBuffs",0)
 	SetCVar("buffDurations",1)
 	SetCVar("useUiScale", 1)
-	SetCVar("uiScale", min(2, max(.64, 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"))))
+	SetCVar("uiScale", min(2, max(.9, 768/string.match(({GetScreenResolutions()})[GetCurrentResolution()], "%d+x(%d+)"))))
 
 	ToggleChatColorNamesByClassGroup(true, "SAY")
 	ToggleChatColorNamesByClassGroup(true, "EMOTE")

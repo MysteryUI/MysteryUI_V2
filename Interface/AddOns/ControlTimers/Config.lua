@@ -49,6 +49,8 @@ addon.spellDB = {
 	"64044",	-- Psychic Horror
 	"2094", 	-- Blind
 	"118", 		-- Polymorph
+	"118271", 	-- 灼烧冲击
+--	"44457", 	-- 活体炸弹
 	"51514", 	-- Hex
 	"6789", 	-- Death Coil
 	"5246", 	-- Intimidating Shout 
