@@ -200,7 +200,7 @@ local iRepair = CreateFrame("Frame", "iRepair")
 	local cost = GetRepairAllCost()
 	local function iRepair_Guild()
 		if iRepair_Chatter then
-			print(" 公會銀行自動修理修理: ".. GetCoinTextureString(cost) )
+			print(" 公會銀行自動修理費用: ".. GetCoinTextureString(cost) )
 		end
 		RepairAllItems(1)
 	end
