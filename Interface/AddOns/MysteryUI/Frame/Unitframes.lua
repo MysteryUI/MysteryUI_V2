@@ -9,6 +9,7 @@ UnitFrames = {}
 UnitFrames.config = {
     SetPoint = true,                -- true or false 是否使用脚本重新定义的各个框体位置
     classTarget = false,            -- true or false 是否其他单位显示职业图标
+	SetRune = false,                -- true or false 是否改变符文的样式和位置，（改变的话它将在屏幕中下位置以弧形排列）
     classColorPlayer = true,        -- true or false 是否渲染玩家职业框体颜色
     classColorTarget = true,        -- true or false 是否渲染目标职业框体颜色
     classColorFocus = true,         -- true or false 是否渲染焦点职业框体颜色
@@ -145,7 +146,7 @@ hooksecurefunc(FocusFrameSpellBar, "Show", function()
 end)
 FocusFrameSpellBar:SetStatusBarColor(0,0.45,0.9); FocusFrameSpellBar.SetStatusBarColor = function() end
 
-if UnitFrames.config.SetPoint then
+if UnitFrames.config.SetRune then
 --[[ 符文 ]]
 RuneFrame:ClearAllPoints() 
 RuneFrame:SetPoint("CENTER",UIParent,"CENTER",0,-170) --符文的框体位置
