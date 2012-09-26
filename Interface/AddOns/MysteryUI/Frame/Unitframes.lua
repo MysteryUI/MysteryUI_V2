@@ -68,7 +68,10 @@ local function ScrewYouPlayerFrame()
 hooksecurefunc("PlayerFrame_AnimateOut", function() PlayerFrame:SetAlpha(0); ScrewYouPlayerFrame() end)
 hooksecurefunc("PlayerFrame_SequenceFinished", function() PlayerFrame:SetAlpha(1); ScrewYouPlayerFrame() end)
 hooksecurefunc("PlayerFrame_UpdateStatus", ScrewYouPlayerFrame)
-end
+else
+PartyMemberFrame1:ClearAllPoints() 
+PartyMemberFrame1:SetPoint("topleft", 10, -120)  --队伍的框体位置
+ end
 
 --[[ 缩放设置 ]]
 PlayerFrame:SetScale("1.0")
