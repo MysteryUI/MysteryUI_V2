@@ -6,7 +6,7 @@ local texture = "Interface\\AddOns\\MysteryUI\\MyMedia\\tex"
 local defaults = {
 	barheight = 12,
 	spacing = 4,
-	maxbars = 5,
+	maxbars = 8,
 	width = 160,
 	maxfights = 10,
 	reportstrings = 10,
@@ -108,7 +108,7 @@ end
 function dataobj.OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_BOTTOMLEFT', 0, self:GetHeight())
 	GameTooltip:AddLine("DamageMeter")
-	GameTooltip:AddLine("Hint: click to show/hide damage meter window.")
+	GameTooltip:AddLine("提示：单击显示/隐藏战斗统计表窗口。.")
 	GameTooltip:Show()
 end
 
@@ -945,11 +945,11 @@ addon:RegisterEvent("PLAYER_ENTERING_WORLD")
 addon:RegisterEvent("PLAYER_REGEN_DISABLED")
 addon:RegisterEvent("UNIT_PET")
 
-SlashCmdList["alDamage"] = function(msg)
+SlashCmdList["Damage"] = function(msg)
 	if MainFrame:IsShown() then
 		MainFrame:Hide()
 	else
 		MainFrame:Show()
 	end
 end
-SLASH_alDamage1 = "/dmg"
+SLASH_Damage1 = "/dmg"

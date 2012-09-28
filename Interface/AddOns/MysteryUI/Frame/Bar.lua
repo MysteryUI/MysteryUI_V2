@@ -2,8 +2,8 @@
 --by Binny
 
 local BarScale = 0.9
-local HideMainButtonArt = false
-local HideExperienceBar = false
+local HideMainButtonArt = false  --是否隐藏狮鹫和主动作条的背景材质
+local HideExperienceBar = false  --是否隐藏经验条
 
 local MenuButtonFrames = {
 	HelpMicroButton,
@@ -136,7 +136,7 @@ end
 
 	
 function SetSidebarAlpha()
-	local Alpha = 0
+	local Alpha = 0  ----右侧动作条鼠标悬停设置：1为不需要鼠标悬停（也就是正常显示），0则为鼠标悬停！ 
 	if MouseInSidebar or ButtonGridIsShown then Alpha = 1 end
 	if SpellFlyout:IsShown() then 
 		DelayEvent(SetSidebarAlpha, GetTime()+.5)
@@ -258,7 +258,7 @@ do
 	-- 缩放
 	MainMenuBar:SetScale(BarScale)
 	MultiBarRight:SetScale(BarScale)
-	MultiBarLeft:SetScale(BarScale)
+--	MultiBarLeft:SetScale(BarScale)  --去掉注释会把[右边动作条2]变小
 
 	-- 调整填充
 	MainMenuBarTexture0:SetPoint("LEFT", MainMenuBar, "LEFT", 0, 0);
