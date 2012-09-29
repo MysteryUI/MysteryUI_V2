@@ -1,5 +1,11 @@
 ﻿--MysteryUI核心设置
 
+local addonName, L = ...; 
+local function defaultFunc(L, key) 
+return key; 
+end 
+setmetatable(L, {__index=defaultFunc}); 
+
 local _G = _G  --解决头像在换类似天赋，符文的时候出现暴雪禁用插件的情况。
 
 --[[ 选项 ]]
@@ -86,7 +92,7 @@ local SetupUI = function()
 end
 
 StaticPopupDialogs["SETUP_UI"] = {
-	text = "第一次使用MysteryUI_V2+你需要重新加载插件。", 
+	text = L["第一次使用MysteryUI_V2+你需要重新加载插件。"], 
 	button1 = ACCEPT, 
 	button2 = CANCEL,
 	OnAccept = SetupUI,
@@ -195,13 +201,13 @@ local iRepair = CreateFrame("Frame", "iRepair")
 	local cost = GetRepairAllCost()
 	local function iRepair_Guild()
 		if iRepair_Chatter then
-			print(" 公會銀行自動修理費用: ".. GetCoinTextureString(cost) )
+			print(L[" 公会银行自动修理费用: "].. GetCoinTextureString(cost) )
 		end
 		RepairAllItems(1)
 	end
 	local function iRepair_Self()
 		if iRepair_Chatter then
-			print(" 你支付的修理費用: ".. GetCoinTextureString(cost) )
+			print(L[" 你支付的修理费用: "].. GetCoinTextureString(cost) )
 		end
 		RepairAllItems()
 	end
@@ -216,12 +222,12 @@ local iRepair = CreateFrame("Frame", "iRepair")
 			elseif cost <= GetMoney() then
 				iRepair_Self()
 			else
-				print(" 公會沒有足夠的資金修理，請嘗試手動.")
+				print(L[" 公会没有足够的资金修理，请尝试手动。"])
 			end
 		elseif cost <= GetMoney() then
 			iRepair_Self()
 		else
-			print(" 你沒有足夠的資金修理。你需要 "..GetCoinTextureString(cost).." 修理費." )
+			print(L[" 你没有足够的资金修理。你需要 "]..GetCoinTextureString(cost)..L[" 的修理费。"])
 		end
 	end
 end)
@@ -261,7 +267,7 @@ if (MoveWatchFrame == true) then
   --提示图标功能
   local function QWFM_Tooltip(self)
     GameTooltip:SetOwner(self, "ANCHOR_TOP")
-    GameTooltip:AddLine("拖动!", 0, 1, 0.5, 1, 1, 1)
+    GameTooltip:AddLine(L["拖动!"], 0, 1, 0.5, 1, 1, 1)
     GameTooltip:Show()
   end
 
@@ -305,8 +311,8 @@ f:RegisterEvent("PLAYER_LEAVE_COMBAT")
 f:SetScript("OnEvent", function()
 	local main, _, _, off, _, _, thrown = GetWeaponEnchantInfo()
 	if not UnitInVehicle("player") and(not main or not off or(not thrown and checkthrown == true)) then
-		--DEFAULT_CHAT_FRAME:AddMessage("##### 沒毒藥了 #####", 1.0,0.96,0.41)  --聊天框提示.
-		UIErrorsFrame:AddMessage("##### 沒毒藥了 #####", 1.0, 0.96, 0.41, 1.0);  --屏幕醒目提示.
+		--DEFAULT_CHAT_FRAME:AddMessage(L["##### 没毒药了 #####"], 1.0,0.96,0.41)  --聊天框提示.
+		UIErrorsFrame:AddMessage(L["##### 没毒药了 #####"], 1.0, 0.96, 0.41, 1.0);  --屏幕醒目提示.
 	end
 end)
 

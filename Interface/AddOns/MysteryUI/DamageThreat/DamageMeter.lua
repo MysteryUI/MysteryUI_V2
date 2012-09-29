@@ -1,4 +1,12 @@
-﻿local anchor = "TOPLEFT"
+﻿--------[战斗统计]---------
+
+local addonName, L = ...; 
+local function defaultFunc(L, key) 
+return key; 
+end 
+setmetatable(L, {__index=defaultFunc});
+
+local anchor = "TOPLEFT"
 local x, y = 12, -14
 local font = GameFontNormal:GetFont()
 local texture = "Interface\\AddOns\\MysteryUI\\MyMedia\\tex"
@@ -108,7 +116,7 @@ end
 function dataobj.OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_BOTTOMLEFT', 0, self:GetHeight())
 	GameTooltip:AddLine("DamageMeter")
-	GameTooltip:AddLine("提示：单击显示/隐藏战斗统计表窗口。.")
+	GameTooltip:AddLine(L["提示：单击显示/隐藏战斗统计窗口。"])
 	GameTooltip:Show()
 end
 
@@ -494,12 +502,12 @@ local CreateMenu = function(self, level)
 		end
 		if UIDROPDOWNMENU_MENU_VALUE == "Fight" then
 			wipe(info)
-			info.text = "当前"
+			info.text = L["当前"]
 			info.func = function() ResetDisplay(current) end
 			info.notCheckable = 1
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "统计全部"
+			info.text = L["统计所有"]
 			info.func = function() ResetDisplay(total) end
 			info.notCheckable = 1
 			UIDropDownMenu_AddButton(info, level)
@@ -513,7 +521,7 @@ local CreateMenu = function(self, level)
 		end
 		if UIDROPDOWNMENU_MENU_VALUE == "Options" then
 			wipe(info)
-			info.text = "可见条"
+			info.text = L["可见条数量"]
 			info.func = function()
 				StaticPopupDialogs[addon_name.."ReportDialog"].OnAccept = function(self)
 					dmconf.maxbars = tonumber(_G[self:GetName().."EditBox"]:GetText())
@@ -527,7 +535,7 @@ local CreateMenu = function(self, level)
 			info.notCheckable = 1
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "条的宽度"
+			info.text = L["条的宽度"]
 			info.func = function()
 				StaticPopupDialogs[addon_name.."ReportDialog"].OnAccept = function(self)
 					dmconf.width = tonumber(_G[self:GetName().."EditBox"]:GetText())
@@ -541,7 +549,7 @@ local CreateMenu = function(self, level)
 			info.notCheckable = 1
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "条的高度"
+			info.text = L["条的高度"]
 			info.func = function()
 				StaticPopupDialogs[addon_name.."ReportDialog"].OnAccept = function(self)
 					dmconf.barheight = tonumber(_G[self:GetName().."EditBox"]:GetText())
@@ -555,7 +563,7 @@ local CreateMenu = function(self, level)
 			info.notCheckable = 1
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "间距"
+			info.text = L["间距"]
 			info.func = function()
 				StaticPopupDialogs[addon_name.."ReportDialog"].OnAccept = function(self)
 					dmconf.spacing = tonumber(_G[self:GetName().."EditBox"]:GetText())
@@ -569,7 +577,7 @@ local CreateMenu = function(self, level)
 			info.notCheckable = 1
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "字体大小"
+			info.text = L["字体大小"]
 			info.func = function()
 				StaticPopupDialogs[addon_name.."ReportDialog"].OnAccept = function(self)
 					dmconf.font_size = tonumber(_G[self:GetName().."EditBox"]:GetText())
@@ -583,7 +591,7 @@ local CreateMenu = function(self, level)
 			info.notCheckable = 1
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "隐藏标题"
+			info.text = L["隐藏标题"]
 			info.func = function()
 				dmconf.hidetitle = not dmconf.hidetitle
 				UpdateWindow()
@@ -591,7 +599,7 @@ local CreateMenu = function(self, level)
 			info.checked = dmconf.hidetitle
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "条用职业颜色"
+			info.text = L["条用职业颜色显示"]
 			info.func = function()
 				dmconf.classcolorbar = not dmconf.classcolorbar
 				UpdateWindow()
@@ -599,7 +607,7 @@ local CreateMenu = function(self, level)
 			info.checked = dmconf.classcolorbar
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "名字用职业颜色"
+			info.text = L["名字用职业颜色显示"]
 			info.func = function()
 				dmconf.classcolorname = not dmconf.classcolorname
 				UpdateWindow()
@@ -607,7 +615,7 @@ local CreateMenu = function(self, level)
 			info.checked = dmconf.classcolorname
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "仅保存BOSS战斗"
+			info.text = L["仅保存BOSS战斗"]
 			info.func = function()
 				dmconf.onlyboss = not dmconf.onlyboss
 				UpdateWindow()
@@ -615,7 +623,7 @@ local CreateMenu = function(self, level)
 			info.checked = dmconf.onlyboss
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "合并治愈和吸收"
+			info.text = L["合并治愈和吸收"]
 			info.func = function()
 				dmconf.mergeHealAbsorbs = not dmconf.mergeHealAbsorbs
 				UpdateWindow()
@@ -623,7 +631,7 @@ local CreateMenu = function(self, level)
 			info.checked = dmconf.mergeHealAbsorbs
 			UIDropDownMenu_AddButton(info, level)
 			wipe(info)
-			info.text = "条的颜色"
+			info.text = L["条的颜色"]
 			info.hasColorSwatch = 1
 			info.func = UIDropDownMenuButton_OpenColorPicker
 			info.r = dmconf.barcolor[1]
@@ -641,7 +649,7 @@ local CreateMenu = function(self, level)
 			info.notCheckable = 1
 			info.keepShownOnClick = false
 			UIDropDownMenu_AddButton(info, level)
-			info.text = "背景颜色"
+			info.text = L["背景颜色"]
 			info.hasColorSwatch = 1
 			info.hasOpacity = (dmconf.backdrop_color[4] ~= nil)
 			info.func = UIDropDownMenuButton_OpenColorPicker
@@ -663,7 +671,7 @@ local CreateMenu = function(self, level)
 			info.notCheckable = 1
 			info.keepShownOnClick = false
 			UIDropDownMenu_AddButton(info, level)
-			info.text = "边框颜色(会有报错）"
+			info.text = L["边框颜色(会有报错）"]
 			info.hasColorSwatch = 1
 			info.hasOpacity = 1
 			info.func = UIDropDownMenuButton_OpenColorPicker

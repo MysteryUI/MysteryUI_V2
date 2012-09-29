@@ -1,4 +1,11 @@
 --界面框体增强
+
+local addonName, L = ...; 
+local function defaultFunc(L, key) 
+return key; 
+end 
+setmetatable(L, {__index=defaultFunc}); 
+
 local _G = _G  --解决头像在换类似天赋，符文的时候出现暴雪禁用插件的情况。
 local _, class = UnitClass("player")
 
@@ -8,8 +15,8 @@ local _, class = UnitClass("player")
 UnitFrames = {}
 UnitFrames.config = {
 ---2个布局选1.或者都不选择（注意：下面PVP布局和PVE布局不能同时开启[= true]，但是可以同时关闭[= false]，当同时关闭[= false]时将恢复原系统定义布局)
-    PVE_Style = true,               -- true or false 是否使用PVE布局（注意：PVP布局和PVE布局不能同时开启[= true]但是可以同时关闭[= false])
-	PVP_Style = false,              -- true or false 是否使用PVP布局（注意：PVP布局和PVE布局不能同时开启[= true]但是可以同时关闭[= false])
+    PVE_Style = false,              -- true or false 是否使用PVE布局（注意：PVP布局和PVE布局不能同时开启[= true]但是可以同时关闭[= false])
+	PVP_Style = true,               -- true or false 是否使用PVP布局（注意：PVP布局和PVE布局不能同时开启[= true]但是可以同时关闭[= false])
 ---2个布局选1.或者都不选择（注意：上面PVP布局和PVE布局不能同时开启[= true]，但是可以同时关闭[= false]，当同时关闭[= false]时将恢复原系统定义布局)
     classTarget = false,            -- true or false 是否其他单位显示职业图标
 	SetRune = false,                -- true or false 是否改变符文的样式和位置，（改变的话它将在屏幕中下位置以弧形排列）
@@ -29,9 +36,9 @@ UnitFrames.config = {
 
 UnitFrames.config.phrases = {
     ["1000 separator"] = " ",
-    ["Dead"] = "|cFFFFFFFF死亡|r",
-    ["Ghost"] = "|cFFFFFFFF鬼魂|r",
-    ["Offline"] = "|cFFFFFFFF離綫|r",
+    ["Dead"] = L["|cFFFFFFFF死亡|r"],
+    ["Ghost"] = L["|cFFFFFFFF鬼魂|r"],
+    ["Offline"] = L["|cFFFFFFFF离线|r"],
     ["kilo"] = " k",  -- simpleHealth 1.000
     ["mega"] = " m",  -- simpleHealth 1.000.000
     ["giga"] = " g",  -- simpleHealth 1.000.000.000

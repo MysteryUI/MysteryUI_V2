@@ -12,6 +12,7 @@
 ## X-WoWBox-Ver: 1
 ## X-WoWBox-ID: 3340
 
+local.lua
 MysteryUI.lua
 ui.xml
 
