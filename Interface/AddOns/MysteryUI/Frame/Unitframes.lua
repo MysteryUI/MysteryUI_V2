@@ -6,7 +6,7 @@ return key;
 end 
 setmetatable(L, {__index=defaultFunc}); 
 
-local _G = _G  --解决头像在换类似天赋，符文的时候出现暴雪禁用插件的情况。
+local _G = _G  --解决头像在换类似天赋，雕文的时候出现暴雪禁用插件的情况。
 local _, class = UnitClass("player")
 
 ---------------------------------------------------

@@ -2,8 +2,8 @@
 --by Binny
 
 local BarScale = 0.9
-local HideMainButtonArt = false  --是否隐藏狮鹫和主动作条的背景材质
-local HideExperienceBar = false  --是否隐藏经验条
+local HideMainButtonArt = false  -- true or false 是否隐藏狮鹫和主动作条的背景材质
+local HideExperienceBar = false  -- true or false 是否隐藏经验条
 
 local MenuButtonFrames = {
 	HelpMicroButton,
